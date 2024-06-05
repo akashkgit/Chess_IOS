@@ -23,6 +23,8 @@
 		6B93654B2BF6D55E00B59021 /* chess.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B9365492BF6D55E00B59021 /* chess.xcdatamodeld */; };
 		6B9365502BF6D56000B59021 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B93654E2BF6D56000B59021 /* LaunchScreen.storyboard */; };
 		6B93657B2C024A8600B59021 /* chessv3.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B93657A2C024A8500B59021 /* chessv3.ttf */; };
+		6BB1EDF72C0D165D00BB7AD8 /* jsonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB1EDF62C0D165D00BB7AD8 /* jsonModel.swift */; };
+		6BE6D53B2C0E73B800F046EA /* chessMoves.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE6D53A2C0E73B800F046EA /* chessMoves.swift */; };
 		6BF1B6E72C08295600B07951 /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF1B6E62C08295600B07951 /* MatchViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +47,8 @@
 		6B93654F2BF6D56000B59021 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B9365512BF6D56000B59021 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B93657A2C024A8500B59021 /* chessv3.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = chessv3.ttf; sourceTree = "<group>"; };
+		6BB1EDF62C0D165D00BB7AD8 /* jsonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonModel.swift; sourceTree = "<group>"; };
+		6BE6D53A2C0E73B800F046EA /* chessMoves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chessMoves.swift; sourceTree = "<group>"; };
 		6BF1B6E62C08295600B07951 /* MatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +100,8 @@
 				6B1A93B92C081B460071174F /* playAFriend.swift */,
 				6BF1B6E62C08295600B07951 /* MatchViewController.swift */,
 				6B7D96B42C08D90200A1D59E /* chessBoardView.swift */,
+				6BB1EDF62C0D165D00BB7AD8 /* jsonModel.swift */,
+				6BE6D53A2C0E73B800F046EA /* chessMoves.swift */,
 			);
 			path = chess;
 			sourceTree = "<group>";
@@ -183,6 +189,8 @@
 				6B7D96B52C08D90200A1D59E /* chessBoardView.swift in Sources */,
 				6B72E21D2C04C0600069E19F /* learnViewController.swift in Sources */,
 				6B9365412BF6D55E00B59021 /* AppDelegate.swift in Sources */,
+				6BE6D53B2C0E73B800F046EA /* chessMoves.swift in Sources */,
+				6BB1EDF72C0D165D00BB7AD8 /* jsonModel.swift in Sources */,
 				6B1A93BA2C081B460071174F /* playAFriend.swift in Sources */,
 				6B9365432BF6D55E00B59021 /* SceneDelegate.swift in Sources */,
 			);
