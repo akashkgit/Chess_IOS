@@ -85,11 +85,19 @@ func match( _ y:CGFloat, _ x:CGFloat, _ dest:UIButton?)  -> status{
         var coinInfo_ : coinInfo = v as coinInfo
         
         if(abs(btn.frame.minX - x) < btn.frame.width / 2 &&  abs(btn.frame.minY - y) < btn.frame.height / 2){
+            if let d = dest {
+                print(" $$$$$$ OBSKILL \(d == btn), \(MatchViewController.matchSession.myComp.myCoin == MatchViewController.reverseMap[d]!.type),\( MatchViewController.dryRun)")
+            }
             if let d = dest, d == btn, MatchViewController.matchSession.myComp.myCoin != MatchViewController.reverseMap[d]!.type {
                 print("kill \(btn.frame.minX)/ \(x) & \(btn.frame.minY)/\(y): \(coinInfo_.name)")
                 return status.granted_killing
             }
-            else {
+                                        
+            else if let d = dest, d == btn, MatchViewController.matchSession.myComp.myCoin == MatchViewController.reverseMap[d]!.type, MatchViewController.dryRun {
+                print("kill \(btn.frame.minX)/ \(x) & \(btn.frame.minY)/\(y): \(coinInfo_.name)")
+                return status.granted_killing
+            }
+            else if(MatchViewController.skip != btn){
                 print("obstructed by  \(btn.frame.minX)/ \(x) & \(btn.frame.minY)/\(y): \(coinInfo_.name)")
                 return status.prohibited_obstructed
             }
@@ -130,7 +138,7 @@ tr1: while( row_ <= 2 && top_ >= 0 && col_ <= 1 && left_ <= MatchViewController.
         switch(res){
         case let  x where  x == status.granted_killing :
             print("obs | kill 2 \(row_) \(col_) \(update[1]) \(update[0])")
-            if( update[1] == Int(row_) && update[0] == -1 * Int(col_) ){
+            if( update[1] == Int(row_) && update[0] == 1 * Int(col_) ){
                 return x
             }
             
@@ -236,7 +244,7 @@ tl1:while( row_ <= 1 && top_ >= 0 && col_ <= 2 && left_ <= MatchViewController.b
         
     }
     
-    row_ = 1.0; col_ = 2.0; top_ = 0.0; left_ = 0.0; width = btn.frame.width; height = btn.frame.height
+    row_ = 2.0; col_ = 1.0; top_ = 0.0; left_ = 0.0; width = btn.frame.width; height = btn.frame.height
     top_ = btn.frame.minY
     left_ = btn.frame.minX
     
@@ -941,7 +949,7 @@ dr: while(row_ <= 1 && top_ <= MatchViewController.boardBounds!["bottom"]!  && c
 func rook(_ btn:UIButton! ,_ update: [Int], _ dest:UIButton?) ->status{
     
     
-    var row_ = 1.0, col_ = 0.0, top_ = 0.0, left_ = 0.0, width = btn.frame.width, height = btn.frame.height
+    var row_ = 0.0, col_ = 0.0, top_ = 0.0, left_ = 0.0, width = btn.frame.width, height = btn.frame.height
     top_ = btn.frame.minY
     left_ = btn.frame.minX
     
@@ -953,7 +961,7 @@ t:while( row_ <= 8 && top_ >= 0 && left_ >= 0){
         switch(res){
         case let  x where  x == status.granted_killing :
             print("obs | kill 2 \(row_) \(col_) \(update[1]) \(update[0])")
-            if( update[1] == Int(row_) && update[0] == -1 * Int(col_) ){
+            if( update[1] == Int(row_) && update[0] == 1 * Int(col_) ){
                 return x
             }
             
@@ -961,7 +969,7 @@ t:while( row_ <= 8 && top_ >= 0 && left_ >= 0){
             break t
         default :
             
-            if( update[1] == Int(row_) && update[0] == -1 * Int(col_) ){
+            if( update[1] == Int(row_) && update[0] == 1 * Int(col_) ){
                 print(" returned plain ")
                 return status.granted_plain
             }
@@ -1076,8 +1084,3 @@ ryt:while( col_ <= 8 && left_ <= MatchViewController.boardBounds!["right"]!  && 
     }
     
     
-    
-    
-    
-
-

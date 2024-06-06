@@ -22,7 +22,7 @@ struct matchState {
     
 }
 class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
-    
+    static var dryRun = false
     static var boardBounds:[String:CGFloat]? = [String:CGFloat]()
     @IBOutlet weak var myIcon: UIImageView!
     @IBOutlet weak var oppIcon: UIImageView!
@@ -129,6 +129,8 @@ class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
     static var reverseMap :[UIButton:coinInfo] = [:]
     private var activeEl: UIButton? = nil
     private var ws:URLSessionWebSocketTask? = nil
+    
+    
     func swapPos(_ coin1:UIButton!, _ coin2:UIButton!){
         
 //        print("\(coin1.frame)-\(coin2.frame)")
@@ -242,10 +244,87 @@ class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
         
     }
     
-    func moveCoinHelper(_ locationX:CGFloat?, _ locationY: CGFloat?, _ dest:UIButton?){
+    
+    
+func kingExposed(_ view: MatchViewController) -> Bool{
+    
+    var king =  MatchViewController.matchSession.myComp.myCoin == "white" ? view.wk : view.bk
+    
+    for (k,v) in MatchViewController.reverseMap {
+        
+        var info: coinInfo = v as coinInfo
+        print(" opp coin is \(MatchViewController.matchSession.oppComp.myCoin ): \(info.type)")
+        if info.type == MatchViewController.matchSession.oppComp.myCoin {
+            MatchViewController.dryRun = true
+            var coinName = info.name
+            var  temp = view.activeEl
+            view.activeEl = k
+            print(" ##### checking \(info.name) \(MatchViewController.reverseMap[king!]?.name) ########")
+            
+            
+            var res = moveCoinHelper(nil, nil, king)!
+            activeEl = temp
+            MatchViewController.dryRun = false
+            switch(res){
+            case status.granted_killing :
+                print("-----------> killing possible <-----------------")
+                return true
+            default :
+                print("-------> default <------------------------------")
+            }
+        
+            
+            
+            
+        }
+    }
+    return false
+}
+
+    
+func checkcheck(_ view: MatchViewController) -> Bool{
+    
+    var king =  MatchViewController.matchSession.myComp.myCoin == "white" ? view.bk  : view.wk
+    
+    for (k,v) in MatchViewController.reverseMap {
+        
+        var info: coinInfo = v as coinInfo
+        print(" opp coin is \(MatchViewController.matchSession.myComp.myCoin ): \(info.type)")
+        if info.type == MatchViewController.matchSession.myComp.myCoin {
+            MatchViewController.dryRun = true
+            var coinName = info.name
+            var  temp = view.activeEl
+            view.activeEl = k
+            print(" ##### checking \(info.name) \(MatchViewController.reverseMap[king!]?.name) ########")
+            
+            
+            var res = moveCoinHelper(nil, nil, king)!
+            activeEl = temp
+            MatchViewController.dryRun = false
+            switch(res){
+            case status.granted_killing :
+                print("-----------> killing possible <-----------------")
+                return true
+            default :
+                print("-------> default <------------------------------")
+            }
+        
+            
+            
+            
+        }
+    }
+    return false
+}
+
+
+
+    
+    func moveCoinHelper(_ locationX:CGFloat?, _ locationY: CGFloat?, _ dest:UIButton?) ->status?{
         var locX = locationX
         var locY = locationY
         if ( dest != nil ) {
+            print(" DDDD EEEEE SSSS TTTTTTT  ----->| \(MatchViewController.reverseMap[dest!]!.name)")
             locX = dest?.frame.minX
             locY = dest?.frame.minY
             
@@ -297,13 +376,20 @@ class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
         if(MatchViewController.matchSession.myComp.myCoin == "black"){
             if( (activeEl!.frame.minY - (locY!)) >= 0 && dest == nil ) { midY = midY + 1 }
             
+            
             var nr = Int(row.unicodeScalars.first!.value) -  midY
             //            nr = nr > 8 ? nr - 8 : nr
-            if (  (activeEl!.frame.minX - (locX!))  > 0 && dest == nil ) {midX = midX + 1}
+            if (  (activeEl!.frame.minX - (locX!))  > 0 && dest == nil ) {
+                
+            
+                midX = midX + 1
+            }
+            
+            else if (  abs(activeEl!.frame.minX - (locX!))  > 0.8 * activeEl!.frame.width && abs(activeEl!.frame.minX - (locX!))  <  activeEl!.frame.width ) {midX = midX + ((activeEl!.frame.minX - (locX!))  > 0 ? 1 : -1)}
             var nc = String(UnicodeScalar(Int(col.unicodeScalars.first!.value) + midX)!)
             //            nc =  nc > "h" ? String("a".unicodeScalars.first!.value + (nc.unicodeScalars.first!.value - "h".unicodeScalars.first!.value)) : nc
-            print("\(row):\(Int(row.unicodeScalars.first!.value) ) - dy:\(midY) - > \(nr)")
-            print("\(col):\(Int(col.unicodeScalars.first!.value) ) - dx:\(midX) - > \(nc)")
+            print("\(row):\(Int(row.unicodeScalars.first!.value) ) - dy:\(midY) - > \(nr) ")
+            print("\(col):\(Int(col.unicodeScalars.first!.value) ) - dx:\(midX) - > \(nc) \(abs(activeEl!.frame.minX - (locX!)) ) \(activeEl!.frame.width ) \(0.8 * activeEl!.frame.width ) \(abs(activeEl!.frame.minX - (locX!))  > 0.8 * activeEl!.frame.width )")
             curPos = String(Character(UnicodeScalar(nr)!) ) + nc
             print("cur pos is \(curPos)")
             
@@ -320,15 +406,30 @@ class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
         }
         
         // ------ checking  ------------
-        
-        switch (moveMapping[String(t[1])]!(activeEl,[midX, midY], dest)){
+        print(" calling ......  \(String(t[1])) handler ")
+        var res = moveMapping[String(t[1])]!(activeEl,[midX, midY], dest)
+        print(" res is \(res)")
+        switch (res){
             
-        case status.granted_plain , status.granted_killing:
-            print(" ! suceess you can move  ");
+        case let x where x == status.granted_plain  || x == status.granted_killing:
+            if(MatchViewController.dryRun  ){
+//                MatchViewController.skip = activeEl
+//                let exposed = kingExposed(self)
+//                MatchViewController.skip = nil
+//                if(exposed){
+//                    return status.prohibited_inCorrentPattern
+//                }
+                return x
+            }
+            else {
+                print(" ! suceess you can move  - returning \(x)");
+            }
+                
+            
         
     default :
         print(" no bro! wrong move ")
-            return 
+            return status.prohibited_inCorrentPattern
     }
         
         
@@ -341,25 +442,60 @@ class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
         var toSend = msg(action:"matchManager", type :"play",  src: MatchViewController.matchSession.myComp.name, dest:MatchViewController.matchSession.oppComp.name,coinMoved : chess.move(coin:coin_,  Pos:[-1 * midX, -1 * midY], kill:["kill":false], check: false) )
         print("toSend \(toSend)")
         
-        
-        if( dest == nil ){
-            xc.constant = CGFloat(newX)
-            yc.constant = CGFloat(newY)
+        if( !MatchViewController.dryRun) {
+            if( dest == nil ){
+                
+                var txc = xc.constant, tyc = yc.constant
+                xc.constant = CGFloat(newX)
+                yc.constant = CGFloat(newY)
+                self.view.layoutIfNeeded()
+                print(" udpated constraint \(xc.constant) \(yc.constant)")
+//                MatchViewController.skip = activeEl
+                let exposed = kingExposed(self)
+//                MatchViewController.skip = nil
+                if(exposed){
+                    print("?????????? reversing coin move as its not allowed ???????????")
+                    xc.constant =  txc
+                    yc.constant = tyc
+                    return status.prohibited_inCorrentPattern
+                }
+                
+                
+            }
+            else {
+                var  sender_xc = MatchViewController.reverseMap[dest!]!.constraintLst[0]
+                var  sender_yc = MatchViewController.reverseMap[dest!]!.constraintLst[1]
+                var activeEl_xc = MatchViewController.reverseMap[activeEl!]!.constraintLst[0], txc = activeEl_xc.constant
+                var activeEl_yc = MatchViewController.reverseMap[activeEl!]!.constraintLst[1], tyc = activeEl_yc.constant
+                
+                
+                
+                
+                activeEl_xc.constant = sender_xc.constant
+                activeEl_yc.constant = sender_yc.constant
+                dest!.removeFromSuperview()
+                
+                
+                    MatchViewController.skip = activeEl
+                    let exposed = kingExposed(self)
+                    MatchViewController.skip = nil
+                    if(exposed){
+                        print("????? reverting coin move as not allowed - 2 ??????")
+                        activeEl_xc.constant = txc
+                        activeEl_yc.constant = tyc
+                        self.boardView.addSubview(dest!)
+                        return status.prohibited_inCorrentPattern
+                    }
+            }
+            self.view.layoutIfNeeded()
+            let exposed = checkcheck(self)
+            print("chekccheck \(exposed)")
         }
-        else {
-            var  sender_xc = MatchViewController.reverseMap[dest!]!.constraintLst[0]
-            var  sender_yc = MatchViewController.reverseMap[dest!]!.constraintLst[1]
-            var activeEl_xc = MatchViewController.reverseMap[activeEl!]!.constraintLst[0]
-            var activeEl_yc = MatchViewController.reverseMap[activeEl!]!.constraintLst[1]
-            
-            
-            
-            
-            activeEl_xc.constant = sender_xc.constant
-            activeEl_yc.constant = sender_yc.constant
-            dest!.removeFromSuperview()
-        }
         
+
+        
+       
+            return nil
     }
     func configNav(){
         let app = UINavigationBarAppearance()
@@ -511,7 +647,7 @@ class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
         
         // -- websocket ------------
         
-        
+        MatchViewController.matchSession.oppComp.myCoin = "white"
         let uses = URLSession(configuration:.default, delegate: self, delegateQueue: nil)
         let url = URL(string: "wss://6ph3c75vv0.execute-api.us-east-1.amazonaws.com/production/")
          ws = uses.webSocketTask(with: url!)
@@ -804,9 +940,18 @@ class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
             utils.activate(bounds)
             
         }
+        
+        // -- standing bishop for checking bk
+        
+        MatchViewController.reverseMap[wp5]?.constraintLst[0].constant = 0
+        MatchViewController.reverseMap[wp5]?.constraintLst[1].constant =  h * 4
+        
+        
+        
             
         
     }
+    static var skip:UIButton?
     @objc func updateMyTime(_ timer: Timer) {
         
 //        print(" timer \(timer)")
