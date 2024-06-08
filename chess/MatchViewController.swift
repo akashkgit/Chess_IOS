@@ -40,6 +40,7 @@ class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
     @IBOutlet weak var myClk: UILabel!
 
     
+
     
     @IBOutlet weak var boardImg: UIImageView!
     static var  matchSession = matchState()
@@ -131,6 +132,13 @@ class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
     private var ws:URLSessionWebSocketTask? = nil
     
     
+    func setView() {
+        var nib = UINib(nibName: "custview", bundle: Bundle(for: type(of: self)))
+        nib.instantiate(withOwner: self)
+//        self.view.addSubview(popup)
+        
+    }
+
     func swapPos(_ coin1:UIButton!, _ coin2:UIButton!){
         
 //        print("\(coin1.frame)-\(coin2.frame)")
@@ -438,9 +446,7 @@ func checkcheck(_ view: MatchViewController) -> Bool{
         // -----------------------------
         
         btnDets?.position = curPos
-        let coin_ = Coin(type: String(t[1]) , boxId: btnDets!.boxId, curPos: curPos)
-        var toSend = msg(action:"matchManager", type :"play",  src: MatchViewController.matchSession.myComp.name, dest:MatchViewController.matchSession.oppComp.name,coinMoved : chess.move(coin:coin_,  Pos:[-1 * midX, -1 * midY], kill:["kill":false], check: false) )
-        print("toSend \(toSend)")
+       
         
         if( !MatchViewController.dryRun) {
             if( dest == nil ){
@@ -489,7 +495,13 @@ func checkcheck(_ view: MatchViewController) -> Bool{
             }
             self.view.layoutIfNeeded()
             let exposed = checkcheck(self)
-            print("chekccheck \(exposed)")
+            
+            
+            let coin_ = Coin(type: String(t[1]) , boxId: btnDets!.boxId, curPos: curPos)
+            var toSend = msg(action:"matchManager", type :"play",  src: MatchViewController.matchSession.myComp.name, dest:MatchViewController.matchSession.oppComp.name,coinMoved : chess.move(coin:coin_,  Pos:[-1 * midX, -1 * midY], kill:["kill":false], check: exposed) )
+            print("toSend \(toSend)")
+            
+            send(toSend)
         }
         
 
@@ -641,17 +653,19 @@ func checkcheck(_ view: MatchViewController) -> Bool{
     }
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
            print("Disconnect from Server \(reason)")
-       }
+    }
     
     func setupView(){
         
         // -- websocket ------------
         
+        
+        
         MatchViewController.matchSession.oppComp.myCoin = "white"
         let uses = URLSession(configuration:.default, delegate: self, delegateQueue: nil)
         let url = URL(string: "wss://6ph3c75vv0.execute-api.us-east-1.amazonaws.com/production/")
-         ws = uses.webSocketTask(with: url!)
-//        ws!.resume()
+        ws = uses.webSocketTask(with: url!)
+        ws!.resume()
         
         
         
@@ -685,6 +699,51 @@ func checkcheck(_ view: MatchViewController) -> Bool{
         MatchViewController.boardBounds!["height"] = self.boardView.frame.height
         MatchViewController.boardBounds!["bottom"] = self.boardView.frame.height + self.boardView.frame.minY
         MatchViewController.boardBounds!["right"] = self.boardView.frame.width + self.boardView.frame.minX
+        
+        
+        // --- setting up notification
+//        var nib = UINib(nibName: "custview", bundle: Bundle(for: type(of: self)))
+//        nib.instantiate(withOwner: self)
+//        
+//        self.view.addSubview(popup)
+//        
+//        utils.nomask(popup)
+//    
+//        
+//        
+//        
+//        
+//        
+//        let params = [
+////            popup.topAnchor.constraint(equalTo: self.view.topAnchor),
+//            popup.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+//            popup.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+//            popup.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: -100)
+//
+//        ]
+//        utils.activate(params)
+//        popup.backgroundColor = .red
+//    
+//        DispatchQueue.main.asyncAfter(deadline: .now() , execute: {
+//            print(" dq item execution ")
+//            UIView.animate(withDuration: 0.5, delay: 0, animations: {
+//                params[2].constant = 0
+//                self.view.layoutIfNeeded()
+//            })
+//            
+//            DispatchQueue.main.asyncAfter(deadline: .now()+3, execute: {
+//                UIView.animate(withDuration: 0.5, delay: 0, animations: {
+//                    params[2].constant = -100
+//                    self.view.layoutIfNeeded()
+//                })
+//            })
+//        })
+//
+//        
+        
+        
+        
+        ///-------------------------
         
     }
     
@@ -943,8 +1002,8 @@ func checkcheck(_ view: MatchViewController) -> Bool{
         
         // -- standing bishop for checking bk
         
-        MatchViewController.reverseMap[wp5]?.constraintLst[0].constant = 0
-        MatchViewController.reverseMap[wp5]?.constraintLst[1].constant =  h * 4
+//        MatchViewController.reverseMap[wp5]?.constraintLst[0].constant = 0
+//        MatchViewController.reverseMap[wp5]?.constraintLst[1].constant =  h * 4
         
         
         

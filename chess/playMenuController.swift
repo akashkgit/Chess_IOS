@@ -10,6 +10,7 @@ import UIKit
 class playMenuController: UIViewController {
 
     
+    
     @IBOutlet weak var computer: UIButton!
     @IBOutlet weak var playFriend: UIButton!
     @IBOutlet weak var tournaments: UIButton!
@@ -48,11 +49,33 @@ class playMenuController: UIViewController {
         self.view.backgroundColor = utils.viewBG
         self.tabBarController?.tabBar.isTranslucent = false
         self.tabBarController?.tabBar.backgroundColor = utils.barColor
+    
+       
+//        utils.nomask(popup)
+        utils.nomask([stkView,computer,playFriend, tournaments, startGame, timingOptions, stkView])
+//        let params = [
+////            popup.topAnchor.constraint(equalTo: self.view.topAnchor),
+//            popup.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+//            popup.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+//            popup.topAnchor.constraint(equalTo: stkView.topAnchor, constant: -200)
+//            
+//        ]
+//        utils.activate(params)
+//        popup.backgroundColor = .red
+        computer.backgroundColor = .red
+        stkView.backgroundColor = .blue
+//        DispatchQueue.main.asyncAfter(deadline: .now() , execute: {
+//            UIView.animate(withDuration: 0.5, delay: 0, animations: {
+//                params[2].constant = self.popup.frame.height * -1 - 50
+//                self.view.layoutIfNeeded()
+//            })
+//        })
+
         
     }
     
-    func configButtons() {
-        
+func configButtons() {
+
         timingOptions.backgroundColor = utils.btnColor
         tournaments.backgroundColor = utils.btnColor
         playFriend.backgroundColor = utils.btnColor

@@ -25,6 +25,9 @@
 		6B93657B2C024A8600B59021 /* chessv3.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B93657A2C024A8500B59021 /* chessv3.ttf */; };
 		6BB1EDF72C0D165D00BB7AD8 /* jsonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB1EDF62C0D165D00BB7AD8 /* jsonModel.swift */; };
 		6BE6D53B2C0E73B800F046EA /* chessMoves.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE6D53A2C0E73B800F046EA /* chessMoves.swift */; };
+		6BE6D53D2C13345600F046EA /* custview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BE6D53C2C13345600F046EA /* custview.xib */; };
+		6BEF187E2C133C5200D97B60 /* popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEF187D2C133C5200D97B60 /* popup.swift */; };
+		6BEF18A32C14FC6900D97B60 /* matchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEF18A22C14FC6900D97B60 /* matchData.swift */; };
 		6BF1B6E72C08295600B07951 /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF1B6E62C08295600B07951 /* MatchViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +52,9 @@
 		6B93657A2C024A8500B59021 /* chessv3.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = chessv3.ttf; sourceTree = "<group>"; };
 		6BB1EDF62C0D165D00BB7AD8 /* jsonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonModel.swift; sourceTree = "<group>"; };
 		6BE6D53A2C0E73B800F046EA /* chessMoves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chessMoves.swift; sourceTree = "<group>"; };
+		6BE6D53C2C13345600F046EA /* custview.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = custview.xib; sourceTree = "<group>"; };
+		6BEF187D2C133C5200D97B60 /* popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = popup.swift; sourceTree = "<group>"; };
+		6BEF18A22C14FC6900D97B60 /* matchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = matchData.swift; sourceTree = "<group>"; };
 		6BF1B6E62C08295600B07951 /* MatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +93,7 @@
 				6B9365422BF6D55E00B59021 /* SceneDelegate.swift */,
 				6B9365442BF6D55E00B59021 /* ViewController.swift */,
 				6B9365462BF6D55E00B59021 /* Main.storyboard */,
+				6BE6D53C2C13345600F046EA /* custview.xib */,
 				6B93654E2BF6D56000B59021 /* LaunchScreen.storyboard */,
 				6B93657A2C024A8500B59021 /* chessv3.ttf */,
 				6B9365512BF6D56000B59021 /* Info.plist */,
@@ -102,6 +109,8 @@
 				6B7D96B42C08D90200A1D59E /* chessBoardView.swift */,
 				6BB1EDF62C0D165D00BB7AD8 /* jsonModel.swift */,
 				6BE6D53A2C0E73B800F046EA /* chessMoves.swift */,
+				6BEF187D2C133C5200D97B60 /* popup.swift */,
+				6BEF18A22C14FC6900D97B60 /* matchData.swift */,
 			);
 			path = chess;
 			sourceTree = "<group>";
@@ -165,6 +174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B9365502BF6D56000B59021 /* LaunchScreen.storyboard in Resources */,
+				6BE6D53D2C13345600F046EA /* custview.xib in Resources */,
 				6B93657B2C024A8600B59021 /* chessv3.ttf in Resources */,
 				6B2CF95B2C0967BF006ECDB3 /* Assets.xcassets in Resources */,
 				6B9365482BF6D55E00B59021 /* Main.storyboard in Resources */,
@@ -179,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BF1B6E72C08295600B07951 /* MatchViewController.swift in Sources */,
+				6BEF18A32C14FC6900D97B60 /* matchData.swift in Sources */,
 				6B72E21F2C04C0850069E19F /* watchViewController.swift in Sources */,
 				6B72E2252C069D920069E19F /* playMenuController.swift in Sources */,
 				6B93654B2BF6D55E00B59021 /* chess.xcdatamodeld in Sources */,
@@ -188,6 +199,7 @@
 				6B72E2172C04BDCD0069E19F /* tabmenu.swift in Sources */,
 				6B7D96B52C08D90200A1D59E /* chessBoardView.swift in Sources */,
 				6B72E21D2C04C0600069E19F /* learnViewController.swift in Sources */,
+				6BEF187E2C133C5200D97B60 /* popup.swift in Sources */,
 				6B9365412BF6D55E00B59021 /* AppDelegate.swift in Sources */,
 				6BE6D53B2C0E73B800F046EA /* chessMoves.swift in Sources */,
 				6BB1EDF72C0D165D00BB7AD8 /* jsonModel.swift in Sources */,
