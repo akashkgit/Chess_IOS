@@ -21,6 +21,40 @@ class homeViewController: UIViewController {
         view.backgroundColor = UIColor(red: 46/255, green: 44/255, blue: 41/255, alpha: 1)
         
      
+        
+    }
+    
+    func auth(){
+        
+        connection.getConnection()?.setHandler(.auth, {
+            data in
+            var d = data as! msgModel
+            if(d.authorized!){
+                userdata.login = true
+                
+            }
+            else { userdata.login = false }
+            return nil
+        })
+        let uname = UserDefaults.standard.string(    forKey: "username")
+        let jwt = UserDefaults.standard.string(    forKey: "jwt")
+        let login = UserDefaults.standard.bool(    forKey: "login")
+        
+        print(" auth check \(uname) \(jwt) \(login)")
+        
+        
+        if(login){
+            let ws = connection.getConnection()
+            //{"action":"auth","jwt":localStorage.getItem("jwt")}
+            var msg = msgModel(action: "auth", type: "", choice: "", src: "", dest: "", coinMoved: nil, jwt:jwt)
+            ws?.send(msg)
+            userdata.username = uname!
+            MatchViewController.matchSession.myComp.name = uname!
+            
+        }
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,7 +120,7 @@ class homeViewController: UIViewController {
         }
         addPlayBtn()
 //        self.view.addSubview(btn)
-
+            auth()
     }
     
     @objc func playBtnClkd()->Void{
@@ -166,6 +200,26 @@ class homeViewController: UIViewController {
 //^.*.blue$
         
         
+        guard userdata.login == true else {
+            
+            let signupBtn = UIButton()
+            signupBtn.setTitle( "Signup", for: .normal)
+            signupBtn.addTarget(self, action:#selector(signin), for: .touchUpInside)
+            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: signupBtn)
+//            navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: lbb2 ), UIBarButtonItem(customView: lbl)]
+//            socialCon.contentMode = .scaleAspectFit
+//            socialCon.translatesAutoresizingMaskIntoConstraints = false
+            utils.nomask(signupBtn)
+            navb.topItem?.hidesBackButton = true
+            
+            return
+        }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: socialCon)
+        navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: lbb2 ), UIBarButtonItem(customView: lbl)]
+        socialCon.contentMode = .scaleAspectFit
+        socialCon.translatesAutoresizingMaskIntoConstraints = false
+        navb.topItem?.hidesBackButton = true
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: socialCon)
         navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: lbb2 ), UIBarButtonItem(customView: lbl)]
         socialCon.contentMode = .scaleAspectFit
@@ -173,12 +227,25 @@ class homeViewController: UIViewController {
         navb.topItem?.hidesBackButton = true
         
         
-        
 //
         
         
 //        navigationController?.navigationItem.titleView?.addSubview(v)
         
+        
+    }
+    
+    @IBAction func unwindedSingup(_ param:UIStoryboardSegue){
+        
+    }
+    @objc func signin(){
+        let sNav = self.navigationController!
+        let sb = UIStoryboard.init(name: "Main", bundle: nil)
+        let secondViewController = sb.instantiateViewController(withIdentifier: "signup1") as! signupViewController
+            let nextVc = secondViewController
+        print(" singup button clicked ")
+            sNav.pushViewController(nextVc, animated: true)
+        print(" pushed ")
         
     }
    
@@ -191,6 +258,8 @@ struct utils {
     static let viewBG = UIColor(red: 46/255, green: 44/255, blue: 41/255, alpha: 1)
     static let btnColor = UIColor(red: 46/255, green: 46/255, blue: 43/255, alpha: 1)
     static let navColor = UIColor(red: 33/255, green: 31/255, blue: 30/255, alpha: 1)
+    static let chatBox = UIColor(red: 79/255, green: 77/255, blue: 76/255, alpha: 1)
+    static let chatFontColor = UIColor(red: 222/255, green: 220/255, blue: 221/255, alpha: 1)
     static let moveHistColor = UIColor(red: 28/255, green: 26/255, blue: 25/255, alpha: 1)
     static func nomask(_ anyView: UIView) -> Void {
         anyView.translatesAutoresizingMaskIntoConstraints = false

@@ -24,10 +24,17 @@
 		6B9365502BF6D56000B59021 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B93654E2BF6D56000B59021 /* LaunchScreen.storyboard */; };
 		6B93657B2C024A8600B59021 /* chessv3.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B93657A2C024A8500B59021 /* chessv3.ttf */; };
 		6BB1EDF72C0D165D00BB7AD8 /* jsonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB1EDF62C0D165D00BB7AD8 /* jsonModel.swift */; };
+		6BDBD8632C20635500285B5B /* chatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDBD8622C20635500285B5B /* chatViewController.swift */; };
 		6BE6D53B2C0E73B800F046EA /* chessMoves.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE6D53A2C0E73B800F046EA /* chessMoves.swift */; };
-		6BE6D53D2C13345600F046EA /* custview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BE6D53C2C13345600F046EA /* custview.xib */; };
 		6BEF187E2C133C5200D97B60 /* popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEF187D2C133C5200D97B60 /* popup.swift */; };
 		6BEF18A32C14FC6900D97B60 /* matchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEF18A22C14FC6900D97B60 /* matchData.swift */; };
+		6BEF18A52C19D33F00D97B60 /* pop.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BEF18A42C19D33F00D97B60 /* pop.xib */; };
+		6BEF18A72C1A471F00D97B60 /* signupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEF18A62C1A471F00D97B60 /* signupViewController.swift */; };
+		6BEF18A92C1A48CD00D97B60 /* signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BEF18A82C1A48CD00D97B60 /* signup.storyboard */; };
+		6BEF18AB2C1A6FE300D97B60 /* passwordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEF18AA2C1A6FE300D97B60 /* passwordViewController.swift */; };
+		6BEF18AD2C1A6FFF00D97B60 /* usernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEF18AC2C1A6FFF00D97B60 /* usernameViewController.swift */; };
+		6BEF18AF2C1A702A00D97B60 /* mailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEF18AE2C1A702A00D97B60 /* mailViewController.swift */; };
+		6BEF18B12C1A8F6D00D97B60 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEF18B02C1A8F6D00D97B60 /* loginViewController.swift */; };
 		6BF1B6E72C08295600B07951 /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF1B6E62C08295600B07951 /* MatchViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,10 +58,17 @@
 		6B9365512BF6D56000B59021 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B93657A2C024A8500B59021 /* chessv3.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = chessv3.ttf; sourceTree = "<group>"; };
 		6BB1EDF62C0D165D00BB7AD8 /* jsonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonModel.swift; sourceTree = "<group>"; };
+		6BDBD8622C20635500285B5B /* chatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatViewController.swift; sourceTree = "<group>"; };
 		6BE6D53A2C0E73B800F046EA /* chessMoves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chessMoves.swift; sourceTree = "<group>"; };
-		6BE6D53C2C13345600F046EA /* custview.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = custview.xib; sourceTree = "<group>"; };
 		6BEF187D2C133C5200D97B60 /* popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = popup.swift; sourceTree = "<group>"; };
 		6BEF18A22C14FC6900D97B60 /* matchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = matchData.swift; sourceTree = "<group>"; };
+		6BEF18A42C19D33F00D97B60 /* pop.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = pop.xib; sourceTree = "<group>"; };
+		6BEF18A62C1A471F00D97B60 /* signupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signupViewController.swift; sourceTree = "<group>"; };
+		6BEF18A82C1A48CD00D97B60 /* signup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = signup.storyboard; sourceTree = "<group>"; };
+		6BEF18AA2C1A6FE300D97B60 /* passwordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = passwordViewController.swift; sourceTree = "<group>"; };
+		6BEF18AC2C1A6FFF00D97B60 /* usernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = usernameViewController.swift; sourceTree = "<group>"; };
+		6BEF18AE2C1A702A00D97B60 /* mailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mailViewController.swift; sourceTree = "<group>"; };
+		6BEF18B02C1A8F6D00D97B60 /* loginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
 		6BF1B6E62C08295600B07951 /* MatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,7 +107,6 @@
 				6B9365422BF6D55E00B59021 /* SceneDelegate.swift */,
 				6B9365442BF6D55E00B59021 /* ViewController.swift */,
 				6B9365462BF6D55E00B59021 /* Main.storyboard */,
-				6BE6D53C2C13345600F046EA /* custview.xib */,
 				6B93654E2BF6D56000B59021 /* LaunchScreen.storyboard */,
 				6B93657A2C024A8500B59021 /* chessv3.ttf */,
 				6B9365512BF6D56000B59021 /* Info.plist */,
@@ -111,6 +124,14 @@
 				6BE6D53A2C0E73B800F046EA /* chessMoves.swift */,
 				6BEF187D2C133C5200D97B60 /* popup.swift */,
 				6BEF18A22C14FC6900D97B60 /* matchData.swift */,
+				6BEF18A42C19D33F00D97B60 /* pop.xib */,
+				6BEF18A62C1A471F00D97B60 /* signupViewController.swift */,
+				6BEF18A82C1A48CD00D97B60 /* signup.storyboard */,
+				6BEF18AA2C1A6FE300D97B60 /* passwordViewController.swift */,
+				6BEF18AC2C1A6FFF00D97B60 /* usernameViewController.swift */,
+				6BEF18AE2C1A702A00D97B60 /* mailViewController.swift */,
+				6BEF18B02C1A8F6D00D97B60 /* loginViewController.swift */,
+				6BDBD8622C20635500285B5B /* chatViewController.swift */,
 			);
 			path = chess;
 			sourceTree = "<group>";
@@ -174,8 +195,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B9365502BF6D56000B59021 /* LaunchScreen.storyboard in Resources */,
-				6BE6D53D2C13345600F046EA /* custview.xib in Resources */,
 				6B93657B2C024A8600B59021 /* chessv3.ttf in Resources */,
+				6BEF18A92C1A48CD00D97B60 /* signup.storyboard in Resources */,
+				6BEF18A52C19D33F00D97B60 /* pop.xib in Resources */,
 				6B2CF95B2C0967BF006ECDB3 /* Assets.xcassets in Resources */,
 				6B9365482BF6D55E00B59021 /* Main.storyboard in Resources */,
 			);
@@ -194,16 +216,22 @@
 				6B72E2252C069D920069E19F /* playMenuController.swift in Sources */,
 				6B93654B2BF6D55E00B59021 /* chess.xcdatamodeld in Sources */,
 				6B72E21B2C04C0370069E19F /* puzzleViewController.swift in Sources */,
+				6BEF18A72C1A471F00D97B60 /* signupViewController.swift in Sources */,
 				6B72E2212C04C0B20069E19F /* moreViewController.swift in Sources */,
 				6B9365452BF6D55E00B59021 /* ViewController.swift in Sources */,
+				6BDBD8632C20635500285B5B /* chatViewController.swift in Sources */,
 				6B72E2172C04BDCD0069E19F /* tabmenu.swift in Sources */,
+				6BEF18AF2C1A702A00D97B60 /* mailViewController.swift in Sources */,
 				6B7D96B52C08D90200A1D59E /* chessBoardView.swift in Sources */,
+				6BEF18B12C1A8F6D00D97B60 /* loginViewController.swift in Sources */,
 				6B72E21D2C04C0600069E19F /* learnViewController.swift in Sources */,
 				6BEF187E2C133C5200D97B60 /* popup.swift in Sources */,
 				6B9365412BF6D55E00B59021 /* AppDelegate.swift in Sources */,
+				6BEF18AB2C1A6FE300D97B60 /* passwordViewController.swift in Sources */,
 				6BE6D53B2C0E73B800F046EA /* chessMoves.swift in Sources */,
 				6BB1EDF72C0D165D00BB7AD8 /* jsonModel.swift in Sources */,
 				6B1A93BA2C081B460071174F /* playAFriend.swift in Sources */,
+				6BEF18AD2C1A6FFF00D97B60 /* usernameViewController.swift in Sources */,
 				6B9365432BF6D55E00B59021 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

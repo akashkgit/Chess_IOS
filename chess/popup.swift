@@ -6,35 +6,50 @@
 //
 
 import UIKit
-
+@IBDesignable
 class popup: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    @IBOutlet weak var senderName: UILabel!
+    @IBOutlet var rootview: UIView!
+    typealias fnCB = () -> Void
+    var acceptCB: fnCB?
+    var rejectCB: fnCB?
+    override init(frame: CGRect){
+        super.init(frame:frame)
+        print(" called ")
+        self.commonInit()
     }
-    */
     
-    @IBOutlet var contentView: UIView!
+    required init?(coder: NSCoder){
+        super.init(coder: coder)
+        self.commonInit()
+    }
     
-    override init(frame: CGRect) {
-            super.init(frame: frame)
-            setView()
-        }
+    @IBOutlet weak var senderIcon: UIImageView!
+    private func commonInit(){
         
-        required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
-            setView()
-        }
-    
-    
-    func setView() {
-        var nib = Bundle.main.loadNibNamed("custview", owner: self, options: nil)
+        let bundle  = Bundle(for: type(of:self))
+        let nib = UINib(nibName: "pop", bundle: bundle)
+        let frst = nib.instantiate(withOwner: self, options: nil ).first as! UIView
+        print("custom xib ")
+        frst.backgroundColor = .green
+        self.frame = frst.bounds
+//
+        self.addSubview(frst)
+        rootview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        
+      
+    }
+    
+    @IBAction func accept(_ sender: Any) {
+        acceptCB!()
+        print("Accepted ")
         
     }
-
+    
+    @IBAction func reject(_ sender: Any) {
+        rejectCB!()
+        print("rejected")
+    }
 }

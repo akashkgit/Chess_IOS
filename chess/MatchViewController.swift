@@ -19,6 +19,9 @@ struct dets {
 struct matchState {
     var  myComp:dets = dets()
     var  oppComp:dets = dets()
+    var login:Bool = false
+    var username:String = ""
+    
     
 }
 class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
@@ -29,10 +32,15 @@ class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
     @IBOutlet weak var oppClock: UILabel!
     @IBOutlet weak var oppClkStk: UIStackView!
     
+    
+    @IBOutlet weak var chatWindow: UIButton!
     @IBOutlet weak var myName: UILabel!
     @IBOutlet weak var oppName: UILabel!
     @IBOutlet weak var oppClkIcon: UIImageView!
     
+    
+    @IBOutlet weak var oppLCoins: UIStackView!
+    @IBOutlet weak var myLCoins: UIStackView!
     @IBOutlet weak var myClkIcon: UIImageView!
     
     @IBOutlet weak var myClkStk: UIStackView!
@@ -40,7 +48,7 @@ class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
     @IBOutlet weak var myClk: UILabel!
 
     
-
+    
     
     @IBOutlet weak var boardImg: UIImageView!
     static var  matchSession = matchState()
@@ -389,11 +397,17 @@ func checkcheck(_ view: MatchViewController) -> Bool{
             //            nr = nr > 8 ? nr - 8 : nr
             if (  (activeEl!.frame.minX - (locX!))  > 0 && dest == nil ) {
                 
-            
+                    print("\n +++++++ midx+1 (1) ++++++++\n")
                 midX = midX + 1
             }
             
-            else if (  abs(activeEl!.frame.minX - (locX!))  > 0.8 * activeEl!.frame.width && abs(activeEl!.frame.minX - (locX!))  <  activeEl!.frame.width ) {midX = midX + ((activeEl!.frame.minX - (locX!))  > 0 ? 1 : -1)}
+            else if (  abs(activeEl!.frame.minX - (locX!))  > 0.8 * activeEl!.frame.width && abs(activeEl!.frame.minX - (locX!))  <  activeEl!.frame.width ) {
+                
+                
+                midX = midX + ((activeEl!.frame.minX - (locX!))  > 0 ? 1 : -1)
+                
+                print("\n +++++++ midx+\((activeEl!.frame.minX - (locX!))  > 0 ? 1 : -1)(2) ++++++++\n")
+            }
             var nc = String(UnicodeScalar(Int(col.unicodeScalars.first!.value) + midX)!)
             //            nc =  nc > "h" ? String("a".unicodeScalars.first!.value + (nc.unicodeScalars.first!.value - "h".unicodeScalars.first!.value)) : nc
             print("\(row):\(Int(row.unicodeScalars.first!.value) ) - dy:\(midY) - > \(nr) ")
@@ -479,8 +493,7 @@ func checkcheck(_ view: MatchViewController) -> Bool{
                 
                 activeEl_xc.constant = sender_xc.constant
                 activeEl_yc.constant = sender_yc.constant
-                dest!.removeFromSuperview()
-                
+      
                 
                     MatchViewController.skip = activeEl
                     let exposed = kingExposed(self)
@@ -495,16 +508,33 @@ func checkcheck(_ view: MatchViewController) -> Bool{
             }
             self.view.layoutIfNeeded()
             let exposed = checkcheck(self)
-            
+//            
+//            "{\"action\":\"matchManager\",\"type\":\"play\",\"coinMoved\":{\"coin\":{\"type\":\"p\",\"boxId\":\"2e\",\"curPos\":\"x5d\"},\"Pos\":[-1,-1],\"kill\":{\"kill\":true,\"dataPos\":\"7d\"},\"check\":fal
             
             let coin_ = Coin(type: String(t[1]) , boxId: btnDets!.boxId, curPos: curPos)
-            var toSend = msg(action:"matchManager", type :"play",  src: MatchViewController.matchSession.myComp.name, dest:MatchViewController.matchSession.oppComp.name,coinMoved : chess.move(coin:coin_,  Pos:[-1 * midX, -1 * midY], kill:["kill":false], check: exposed) )
-            print("toSend \(toSend)")
+            var toSend = msgModel(action:"matchManager", type :"play",  src: MatchViewController.matchSession.myComp.name, dest:MatchViewController.matchSession.oppComp.name,coinMoved : chess.move(coin:coin_,  Pos:[-1 * midX, -1 * midY], kill: killer(kill: dest != nil,dataPos: dest != nil ? MatchViewController.reverseMap[dest!]!.boxId! : ""), check: exposed) )
             
-            send(toSend)
+//            if(dest != nil){
+//                dest?.removeFromSuperview()
+//                MatchViewController.reverseMap[dest!]?.constraintLst[2].constant = 10
+//                MatchViewController.reverseMap[dest!]?.constraintLst[3].constant = 10
+//                self.oppLCoins.addArrangedSubview(dest!)
+//            }
+            if(dest != nil){
+                dest!.removeFromSuperview()
+                MatchViewController.reverseMap[dest!]!.constraintLst[2].constant = 30
+                MatchViewController.reverseMap[dest!]!.constraintLst[3].constant = 30
+                dest!.contentMode = .scaleAspectFit
+                print(" SIZE SIZE SIZE 2", dest!.constraints)
+                                self.oppLCoins.addArrangedSubview(dest!)
+            }
+            print("toSend \(toSend)")
+                
+            connection.getConnection()!.send(toSend)
+//            send(toSend)
         }
         
-
+//        "{\"action\":\"matchManager\",\"type\":\"play\",\"coinMoved\":{\"coin\":{\"type\":\"p\",\"boxId\":\"2e\",\"curPos\":\"x5d\"},\"Pos\":[-1,-1],\"kill\":{\"kill\":true,\"dataPos\":\"7d\"},\"check\":fal
         
        
             return nil
@@ -532,7 +562,7 @@ func checkcheck(_ view: MatchViewController) -> Bool{
         
     }
     
-    func send(_ data: msg? = msg(action: "matchManager", type: "requestAck", choice: "accept", src: "pip", dest: "bib", coinMoved: nil)){
+    func send(_ data: msgModel? = msgModel(action: "matchManager", type: "requestAck", choice: "accept", src: "pip", dest: "bib", coinMoved: nil)){
         //{ action: "matchManager", type: "requestAck", "choice": "accept", "src": src, "dest": localStorage.getItem("username") }
         // {"action":"matchManager","type":"play","coinMoved":{"coin":{"type":"p","boxId":"2e","curPos":"4e"},"Pos":[0,-2],"kill":{"kill":false},"check":false},"dest":"bib","src":"pip"}
       
@@ -567,7 +597,8 @@ func checkcheck(_ view: MatchViewController) -> Bool{
             print(" send result : \(error) !")
         }
     }
-    func processReq(_ res:msg){
+    func processReq(_ ress:Any?){
+        var res = ress! as! msgModel
         if (res.type == "play") {
             print(" processing the move")
             var boxId = res.coinMoved?.coin.boxId
@@ -585,6 +616,26 @@ func checkcheck(_ view: MatchViewController) -> Bool{
                 item?.constraintLst[0].constant = item!.constraintLst[0].constant + CGFloat(pos![0] * -1 ) * btn!.frame.width
                 item?.constraintLst[1].constant = item!.constraintLst[1].constant + CGFloat(pos![1] * -1 ) * btn!.frame.height
                 print("new constraint \(item?.constraintLst[0].constant ) \(item?.constraintLst[1].constant )")
+                
+                if let killed = kill?.kill, let dPos = kill?.dataPos {
+                    let killedCoin = self.mapping[dPos]?.btn
+                    print(" removing killed coin:\(dPos )->\(killedCoin)")
+                    
+                    
+                    print(" SIZE SIZE SIZE ", killedCoin!.constraints)
+                    MatchViewController.reverseMap[killedCoin!]?.constraintLst[2].constant = 30
+                    
+                    
+                    MatchViewController.reverseMap[killedCoin!]?.constraintLst[3].constant = 30
+                    
+                    killedCoin?.removeFromSuperview()
+                    killedCoin?.contentMode = .scaleAspectFit
+                    
+                    killedCoin?.backgroundColor = .red
+                    self.view.setNeedsLayout()
+                    print(" SIZE SIZE SIZE ", killedCoin!.constraints, killedCoin?.frame)
+                    self.myLCoins.addArrangedSubview(killedCoin!)
+                }
             }
             
             
@@ -615,7 +666,7 @@ func checkcheck(_ view: MatchViewController) -> Bool{
                        case .string(let strMessgae):
                        print("String received \(strMessgae)")
                            let dec = JSONDecoder()
-                           if let res: msg = try? dec.decode(msg.self, from: strMessgae.data(using:.utf8)!){
+                           if let res: msgModel = try? dec.decode(msgModel.self, from: strMessgae.data(using:.utf8)!){
                                print(res.type)
                                print(res.src)
                                MatchViewController.matchSession.myComp.name = res.dest
@@ -660,12 +711,13 @@ func checkcheck(_ view: MatchViewController) -> Bool{
         // -- websocket ------------
         
         
+        connection.getConnection()?.setHandler(.play, processReq)
         
         MatchViewController.matchSession.oppComp.myCoin = "white"
         let uses = URLSession(configuration:.default, delegate: self, delegateQueue: nil)
         let url = URL(string: "wss://6ph3c75vv0.execute-api.us-east-1.amazonaws.com/production/")
         ws = uses.webSocketTask(with: url!)
-        ws!.resume()
+//        ws!.resume()
         
         
         
@@ -764,6 +816,9 @@ func checkcheck(_ view: MatchViewController) -> Bool{
     }
     
     func oppNMyInfo(_ stk:UIStackView!, _ icon:UIImageView!, _ name: UILabel!){
+        
+        self.myName.text = MatchViewController.matchSession.myComp.name
+        self.oppName.text = MatchViewController.matchSession.oppComp.name
         stk.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         stk.isLayoutMarginsRelativeArrangement = true
         name.textColor = .white
@@ -963,11 +1018,11 @@ func checkcheck(_ view: MatchViewController) -> Bool{
             
             var btn = val.btn!
             
-            utils.activate([
-                btn.widthAnchor.constraint(equalToConstant: w),
-                btn.heightAnchor.constraint(equalToConstant: h),
-            ])
-            
+//            utils.activate([
+//                btn.widthAnchor.constraint(equalToConstant: w),
+//                btn.heightAnchor.constraint(equalToConstant: h),
+//            ])
+//            
             var rowOffset = 0.0//CGFloat( MatchViewController.matchSession.myComp.myCoin == "white" ? (8 - Int(row)! ) :
             var colOffset = 0.0
             
@@ -991,9 +1046,11 @@ func checkcheck(_ view: MatchViewController) -> Bool{
             }
             let bounds = [
                 btn.leadingAnchor.constraint(equalTo: self.boardView.leadingAnchor, constant: colOffset * w),
-                btn.topAnchor.constraint(equalTo: self.boardView.topAnchor, constant: rowOffset * h )
-            
+                btn.topAnchor.constraint(equalTo: self.boardView.topAnchor, constant: rowOffset * h ),
+                btn.widthAnchor.constraint(equalToConstant: w),
+                btn.heightAnchor.constraint(equalToConstant: h)
             ]
+            
             val.constraintLst =  bounds
             utils.nomask(btn)
             utils.activate(bounds)

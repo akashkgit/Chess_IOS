@@ -10,73 +10,112 @@ import UIKit
 
 
 class tabMenuController : UITabBarController {
-    
-    @IBOutlet weak var sender: UILabel!
-    @IBOutlet var popup: UIView!
-    
-    @IBAction func acceptReq(_ sender: Any) {
-                
-        
-        
-    }
-    
-    
-    @IBAction func rejectReq(_ sender: Any) {
-    }
-    
-    
-    @IBOutlet weak var popupStk: UIStackView!
-    @IBOutlet weak var accept: UIButton!
-    @IBOutlet weak var reject: UIButton!
+//    
+//    @IBOutlet weak var sender: UILabel!
+//    @IBOutlet var popup: UIView!
+//    
+//    
+//    @IBAction func rejectReq(_ sender: Any) {
+//        print(" rejecting  the request ")
+//    }
+//    
+//
+//    @IBAction func acceptReq(_ sender: Any) {
+//        print(" accepting the request ")
+//        //connection.getConnection()?.send()
+//        
+//    }
+//    
+//    @IBOutlet weak var stuck: UIStackView!
+//    @IBOutlet weak var popupStk: UIStackView!
+//    @IBOutlet weak var accept: UIButton!
+//    @IBOutlet weak var reject: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         configTabs()
+        connection.connect()
+       
         
-        var nib = UINib(nibName: "custview", bundle: Bundle(for: type(of: self)))
-        nib.instantiate(withOwner: self)
+        var matchReq =  popup(frame: .zero)
+        self.view.addSubview(matchReq)
+        utils.nomask(matchReq)
         
-        self.view.addSubview(popup)
-        
-        utils.nomask(popup)
-    
-        accept.tintColor = .green
-        reject.tintColor = .red
-        
-        sender.textColor = . gray
-        
-        
-        
-        
+//
+//        popupStk.clipsToBounds = true
         let params = [
 //            popup.topAnchor.constraint(equalTo: self.view.topAnchor),
-            popup.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            popup.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            popup.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: -100)
+            matchReq.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            matchReq.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            matchReq.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: -100)
             
 
         ]
+        
+        matchReq.rejectCB = {
+            
+            UIView.animate(withDuration: 0.5, delay: 0, animations: {
+                          params[2].constant = -100
+                          self.view.layoutIfNeeded()
+                      })
+          
+            
+        }
+        matchReq.acceptCB = {
+            connection.getConnection()?.send()
+            UIView.animate(withDuration: 0.5, delay: 0, animations: {
+                          params[2].constant = -100
+                          self.view.layoutIfNeeded()
+                      })
+            
+            let sb = UIStoryboard.init(name: "Main", bundle: nil)
+            let secondViewController = sb.instantiateViewController(withIdentifier: "matchView") as! MatchViewController
+                let nextVc = secondViewController
+            MatchViewController.matchSession.oppComp.name = matchReq.senderName.text
+            MatchViewController.matchSession.myComp.name = userdata.username
+            var vc:UINavigationController = self.viewControllers![0] as! UINavigationController//.pushViewController(nextVc, animated: true)
+                vc.pushViewController(nextVc, animated: true)
+            
+        }
         utils.activate(params)
         
-    
-        DispatchQueue.main.asyncAfter(deadline: .now() , execute: {
-            print(" dq item execution ")
-            UIView.animate(withDuration: 0.5, delay: 0, animations: {
-                params[2].constant = 0
-                self.view.layoutIfNeeded()
-            })
-            
-//            DispatchQueue.main.asyncAfter(deadline: .now()+3, execute: {
-//                UIView.animate(withDuration: 0.5, delay: 0, animations: {
-//                    params[2].constant = -100
-//                    self.view.layoutIfNeeded()
-//                })
-//            })
-        })
-        
-        var c = utils.navColor.withAlphaComponent(1)
+//    
+//        
+//        var c = utils.navColor.withAlphaComponent(1)
+////        popupStk.backgroundColor = c
 //        popupStk.backgroundColor = c
-        popupStk.backgroundColor = c
-
+//        DispatchQueue.main.asyncAfter(deadline: .now() , execute: {
+//            print(" dq item execution ")
+//            //            self.sender.text = data.src
+//            UIView.animate(withDuration: 0.5, delay: 0, animations: {
+//                params[2].constant = 100
+//                self.view.layoutIfNeeded()
+//            })
+//        })
+        connection.getConnection()?.setHandler(.requestInit) {
+        message in
+            print("##### requestinit handler #########")
+            
+//            connection.getConnection()?.send()
+            var data = message as! msgModel
+            
+            
+                DispatchQueue.main.asyncAfter(deadline: .now() , execute: {
+                    print(" dq item execution ")
+                    matchReq.senderName.text = data.src
+                    UIView.animate(withDuration: 0.5, delay: 0, animations: {
+                        params[2].constant = 0
+                        self.view.layoutIfNeeded()
+                    })
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now()+3, execute: {
+                        UIView.animate(withDuration: 0.5, delay: 0, animations: {
+                            params[2].constant = -100
+                            self.view.layoutIfNeeded()
+                        })
+                    })
+                })
+            return nil
+        }
         
     }
     
