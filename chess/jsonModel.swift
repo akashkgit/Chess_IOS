@@ -18,8 +18,29 @@ struct json:Codable {
 
 
 struct timeFormat: Codable {
-    var type:String
-    var option:String
+    var mm:String?
+    var ss:String?
+    var src:String?
+    
+    mutating func setSrc(_ srcIn:String){
+        src = srcIn
+        var str = src!.split(separator:" ")
+        if str[1] == "min" {
+            
+            self.mm  = String(format:"%02d", Int((str[0]))!)
+            print("-t-m-\(String(str[0]))-\(self.mm)")
+            self.ss = "00"
+        }
+        else if str[1] == "sec" {
+            self.mm = "00"
+            self.ss  = String(format:"%02d", Int((str[0]))!)
+        }
+        else {
+            print("-NAT-")
+        }
+        
+        
+    }
 }
 
 
@@ -31,9 +52,16 @@ struct msgModel: Codable {
     var dest:String?
     var authorized:Bool?
     var coinMoved:move?
-    var timingOption: timeFormat?
+    var timingOption: gameTime?
     var jwt:String?
+    var startsWith:String?
+    var friendList:[[String:String]]?
     var chatMsg:String?
+}
+
+struct gameTime:Codable {
+    var type:String
+    var option:String
 }
 
 struct move: Codable {

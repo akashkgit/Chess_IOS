@@ -20,10 +20,14 @@ struct matchState {
     var  myComp:dets = dets()
     var  oppComp:dets = dets()
     var login:Bool = false
+    var timingOption: timeFormat?
     var username:String = ""
+    var myTurn:Bool = false
     
     
 }
+
+
 class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
     static var dryRun = false
     static var boardBounds:[String:CGFloat]? = [String:CGFloat]()
@@ -49,10 +53,13 @@ class MatchViewController: UIViewController, URLSessionWebSocketDelegate{
 
     
     
+    @IBOutlet weak var contentView: UIView!
     
     @IBOutlet weak var boardImg: UIImageView!
     static var  matchSession = matchState()
     @IBOutlet weak var moveHistory: UIScrollView!
+    var pastMoves:[UILabel] = Array()
+    var pastConstraint : NSLayoutConstraint?
     @IBOutlet weak var boardView: UIView!
     // ------ black coins ----------
     
@@ -522,15 +529,43 @@ func checkcheck(_ view: MatchViewController) -> Bool{
 //            }
             if(dest != nil){
                 dest!.removeFromSuperview()
-                MatchViewController.reverseMap[dest!]!.constraintLst[2].constant = 30
-                MatchViewController.reverseMap[dest!]!.constraintLst[3].constant = 30
+                MatchViewController.reverseMap[dest!]!.constraintLst[2].constant = 15
+                MatchViewController.reverseMap[dest!]!.constraintLst[3].constant = 15
                 dest!.contentMode = .scaleAspectFit
                 print(" SIZE SIZE SIZE 2", dest!.constraints)
                                 self.oppLCoins.addArrangedSubview(dest!)
             }
             print("toSend \(toSend)")
-                
+            var curMove = UILabel()
+            curMove.text = "\(pastMoves.count + 1)." + (toSend.coinMoved!.kill!.kill! ? "x"+curPos : curPos)
+            toSend.coinMoved!.coin.curPos = toSend.coinMoved!.kill!.kill! ? "x"+curPos : curPos
+            
+            curMove.textColor = .white
+            utils.nomask([curMove])
+            pastMoves.last?.textColor = .gray
+            var last =  pastMoves.last?.trailingAnchor ?? contentView.leadingAnchor
+            contentView.addSubview(curMove)
+            let posConstraints = [
+                curMove.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+                curMove.leadingAnchor.constraint(equalTo: last, constant: 5),
+                curMove.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
+            ]
+            utils.activate(posConstraints)
+            if let c = pastConstraint {
+                contentView.removeConstraint(c)
+            }
+            pastConstraint = curMove.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5)
+            utils.activate([pastConstraint!])
+            pastMoves.append(curMove)
+            self.view.layoutIfNeeded()
+            
+            if ( contentView.frame.width  > moveHistory.frame.width ) {
+                moveHistory.setContentOffset(CGPoint(x: moveHistory.contentOffset.x + curMove.frame.width, y: 0    ), animated: true)
+            }
             connection.getConnection()!.send(toSend)
+            myTimer?.invalidate()
+            self.oppTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateMyTime2), userInfo: nil, repeats: true)
+            
 //            send(toSend)
         }
         
@@ -617,16 +652,38 @@ func checkcheck(_ view: MatchViewController) -> Bool{
                 item?.constraintLst[1].constant = item!.constraintLst[1].constant + CGFloat(pos![1] * -1 ) * btn!.frame.height
                 print("new constraint \(item?.constraintLst[0].constant ) \(item?.constraintLst[1].constant )")
                 
+                var curMove = UILabel()
+                curMove.text = "\(self.pastMoves.count + 1).\(curPos!)"
+                curMove.textColor = .white
+                utils.nomask([curMove])
+                self.pastMoves.last?.textColor = .gray
+                var last =  self.pastMoves.last?.trailingAnchor ?? self.contentView.leadingAnchor
+                
+                self.contentView.addSubview(  curMove)
+                let posConstraints = [
+                    curMove.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5),
+                    curMove.leadingAnchor.constraint(equalTo: last, constant: 5),
+                    curMove.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5)
+                ]
+                utils.activate(posConstraints)
+                if let c = self.pastConstraint {
+                    self.contentView.removeConstraint(c)
+                }
+                self.pastConstraint = curMove.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5)
+                utils.activate([self.pastConstraint!])
+                self.pastMoves.append(curMove)
+                self.myTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateMyTime), userInfo: nil, repeats: true)
+                self.oppTimer?.invalidate()
                 if let killed = kill?.kill, let dPos = kill?.dataPos {
                     let killedCoin = self.mapping[dPos]?.btn
                     print(" removing killed coin:\(dPos )->\(killedCoin)")
                     
                     
                     print(" SIZE SIZE SIZE ", killedCoin!.constraints)
-                    MatchViewController.reverseMap[killedCoin!]?.constraintLst[2].constant = 30
+                    MatchViewController.reverseMap[killedCoin!]?.constraintLst[2].constant = 15
                     
                     
-                    MatchViewController.reverseMap[killedCoin!]?.constraintLst[3].constant = 30
+                    MatchViewController.reverseMap[killedCoin!]?.constraintLst[3].constant = 15
                     
                     killedCoin?.removeFromSuperview()
                     killedCoin?.contentMode = .scaleAspectFit
@@ -635,7 +692,12 @@ func checkcheck(_ view: MatchViewController) -> Bool{
                     self.view.setNeedsLayout()
                     print(" SIZE SIZE SIZE ", killedCoin!.constraints, killedCoin?.frame)
                     self.myLCoins.addArrangedSubview(killedCoin!)
+                    
+                 
+                    
+                    
                 }
+                
             }
             
             
@@ -671,7 +733,7 @@ func checkcheck(_ view: MatchViewController) -> Bool{
                                print(res.src)
                                MatchViewController.matchSession.myComp.name = res.dest
                                MatchViewController.matchSession.oppComp.name = res.src
-                               print(res.timingOption?.type)
+//                               print(res.timingOption?.type)
                                print(" sending data  ......")
                                if(res.type == "requestInit"){ self!.send()}
                                else {
@@ -808,9 +870,7 @@ func checkcheck(_ view: MatchViewController) -> Bool{
         time.textColor = .white
         icon.tintColor = .white
         utils.activate([time.widthAnchor.constraint(equalToConstant: 50),
-                        
                         icon.widthAnchor.constraint(equalToConstant: 30)
-                        
                         ])
          
     }
@@ -819,6 +879,7 @@ func checkcheck(_ view: MatchViewController) -> Bool{
         
         self.myName.text = MatchViewController.matchSession.myComp.name
         self.oppName.text = MatchViewController.matchSession.oppComp.name
+        
         stk.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         stk.isLayoutMarginsRelativeArrangement = true
         name.textColor = .white
@@ -996,8 +1057,28 @@ func checkcheck(_ view: MatchViewController) -> Bool{
         }
     }
     var myTimer:Timer? = nil
+    var oppTimer:Timer? = nil
     func startGame() {
-        myTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateMyTime), userInfo: nil, repeats: true)
+        
+        print("-t-pc-\( MatchViewController.matchSession.timingOption)")
+        MatchViewController.matchSession.myComp.clkComp.mm = Int( MatchViewController.matchSession.timingOption!.mm! )!
+        
+        
+        MatchViewController.matchSession.myComp.clkComp.ss = Int( MatchViewController.matchSession.timingOption!.ss! )!
+        
+        
+        MatchViewController.matchSession.oppComp.clkComp.mm = Int( MatchViewController.matchSession.timingOption!.mm! )!
+        MatchViewController.matchSession.oppComp.clkComp.ss = Int( MatchViewController.matchSession.timingOption!.ss! )!
+        var mmStr = String(format: "%02d",MatchViewController.matchSession.myComp.clkComp.mm)
+        var ssStr = String(format: "%02d",MatchViewController.matchSession.myComp.clkComp.ss)
+        myClk.text = "\(mmStr):\(ssStr)"
+        oppClock.text = "\(mmStr):\(ssStr)"
+        if(MatchViewController.matchSession.myComp.myCoin == "white" ){
+            myTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateMyTime), userInfo: nil, repeats: true)
+        }
+        else {
+            oppTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateMyTime2), userInfo: nil, repeats: true)
+        }
     }
     var count = 5
     
@@ -1099,12 +1180,51 @@ func checkcheck(_ view: MatchViewController) -> Bool{
         var mmStr = String(format: "%02d",mm)
         var ssStr = String(format: "%02d",ss)
         myClk.text = "\(mmStr):\(ssStr)"
+        
+      
+        
+        
+     
+    }
+    @objc func updateMyTime2(_ timer: Timer) {
+        
+//        print(" timer \(timer)")
+        self.count = self.count - 1
+        var ss = MatchViewController.matchSession.oppComp.clkComp.ss
+        var mm = MatchViewController.matchSession.oppComp.clkComp.mm
+        
+            
+        ss = ss - 1
+        
+        if( mm == 0 && ss == 0) {
+            oppTimer?.invalidate()
+        }
+        else if (ss == -1){
+        
+            ss = 59
+            mm = mm - 1
+        }
+        
+        if ( ss == 59 && mm == 0) {
+            oppClkIcon.image = UIImage(systemName: "clock")
+        }
+        
+        
+        oppClkIcon.transform = CGAffineTransformMakeRotation(CGFloat(45 * oppRotCount))
+        oppRotCount = (oppRotCount + 1 ) % 7
+        MatchViewController.matchSession.oppComp.clkComp.mm = mm
+        MatchViewController.matchSession.oppComp.clkComp.ss = ss
+        var mmStr = String(format: "%02d",mm)
+        var ssStr = String(format: "%02d",ss)
+        oppClock .text = "\(mmStr):\(ssStr)"
+        
       
         
         
      
     }
     var rotCount:Int = 1
+    var oppRotCount:Int = 1
     class rotationSeq {
         static var rotationSequence = [UIImage.Orientation.up, UIImage.Orientation.right, UIImage.Orientation.down, UIImage.Orientation.left]
         static var curPos = 0

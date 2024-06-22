@@ -46,7 +46,7 @@ class tabMenuController : UITabBarController {
 //            popup.topAnchor.constraint(equalTo: self.view.topAnchor),
             matchReq.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             matchReq.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            matchReq.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: -100)
+            matchReq.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: -500)
             
 
         ]
@@ -54,8 +54,10 @@ class tabMenuController : UITabBarController {
         matchReq.rejectCB = {
             
             UIView.animate(withDuration: 0.5, delay: 0, animations: {
-                          params[2].constant = -100
+                
+                params[2].constant = -500
                           self.view.layoutIfNeeded()
+                print(" cganging to -500 \(matchReq.constraints)")
                       })
           
             
@@ -63,7 +65,8 @@ class tabMenuController : UITabBarController {
         matchReq.acceptCB = {
             connection.getConnection()?.send()
             UIView.animate(withDuration: 0.5, delay: 0, animations: {
-                          params[2].constant = -100
+                          params[2].constant = -500
+                print(" cganging to -500 \(matchReq.constraints)")
                           self.view.layoutIfNeeded()
                       })
             
@@ -97,8 +100,15 @@ class tabMenuController : UITabBarController {
             
 //            connection.getConnection()?.send()
             var data = message as! msgModel
+//            MatchViewController.matchSession.timingOption = data.timingOption
             
+//            var timeStr = data.timingOption!.split(separator:" ")
+            var  tf = timeFormat()
+            tf.setSrc(data.timingOption!.option)
+            MatchViewController.matchSession.timingOption = tf
             
+            print("-t-\(tf)")
+            print(" set time --> tik tik =----=----===> \(tf) \(MatchViewController.matchSession.timingOption )")
                 DispatchQueue.main.asyncAfter(deadline: .now() , execute: {
                     print(" dq item execution ")
                     matchReq.senderName.text = data.src
@@ -109,7 +119,7 @@ class tabMenuController : UITabBarController {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now()+3, execute: {
                         UIView.animate(withDuration: 0.5, delay: 0, animations: {
-                            params[2].constant = -100
+                            params[2].constant = -500
                             self.view.layoutIfNeeded()
                         })
                     })

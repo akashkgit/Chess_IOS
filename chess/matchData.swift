@@ -12,6 +12,7 @@ enum msgTypes{
     case requestAck
     case play
     case chat
+    case friendList
     case auth
     case connInit
     
@@ -63,7 +64,7 @@ class connection_ : NSObject, URLSessionWebSocketDelegate {
                                print(res.src)
                                MatchViewController.matchSession.myComp.name = res.dest
                                MatchViewController.matchSession.oppComp.name = res.src
-                               print(res.timingOption?.type)
+//                               print(res.timingOption?.type)
                                
                                switch (res.type){
                                case "requestInit" :
@@ -76,11 +77,17 @@ class connection_ : NSObject, URLSessionWebSocketDelegate {
                                case "chatMsg" :
                                    print(" calling chatmsg handler ")
                                    self!.handlers[msgTypes.chat]!(res)
+                               
+                                   
                                default:
                                    
+                                   if let f = res.friendList {
+                                       self!.handlers[msgTypes.friendList]!(res)
+                                   }
                                    
-                                   
-                                   self!.handlers[msgTypes.play]!(res)
+                                   if (res.action == "play"){
+                                       self!.handlers[msgTypes.play]!(res)
+                                   }
                                }
 //                               if(res.type == "requestInit"){ self!.send()}
 //                               else {

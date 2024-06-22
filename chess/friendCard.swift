@@ -1,20 +1,24 @@
 //
-//  popup.swift
+//  friendCard.swift
 //  chess
 //
-//  Created by akash kumar on 6/7/24.
+//  Created by akash kumar on 6/21/24.
 //
 
 import UIKit
-@IBDesignable
-class popup: UIView {
 
+class friendCard: UIView {
+
+    @IBOutlet weak var playerScore: UILabel!
     
-    @IBOutlet weak var senderName: UILabel!
     @IBOutlet var rootview: UIView!
-    typealias fnCB = () -> Void
-    var acceptCB: fnCB?
-    var rejectCB: fnCB?
+    @IBOutlet weak var playerId: UILabel!
+    @IBOutlet weak var playerStatus: UILabel!
+    @IBOutlet weak var playerName: UILabel!
+    @IBOutlet weak var detailsStack: UIStackView!
+    @IBOutlet weak var stkView: UIStackView!
+    @IBOutlet weak var icon: UIImageView!
+    
     override init(frame: CGRect){
         super.init(frame:frame)
         print(" called ")
@@ -30,27 +34,17 @@ class popup: UIView {
     private func commonInit(){
         
         let bundle  = Bundle(for: type(of:self))
-        let nib = UINib(nibName: "pop", bundle: bundle)
+        let nib = UINib(nibName: "userCard", bundle: bundle)
         let frst = nib.instantiate(withOwner: self, options: nil ).first as! UIView
         print("custom xib ")
         frst.backgroundColor = utils.moveHistColor
         self.frame = frst.bounds
 //
-        senderName.textColor = .gray 
+//        senderName.textColor = .gray
         self.addSubview(frst)
-        rootview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.rootview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
       
     }
     
-    @IBAction func accept(_ sender: Any) {
-        acceptCB!()
-        print("Accepted ")
-        
-    }
-    
-    @IBAction func reject(_ sender: Any) {
-        rejectCB!()
-        print("rejected")
-    }
 }

@@ -25,13 +25,14 @@ class chatViewController: UIViewController {
     @IBOutlet weak var chatHeader: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .green
+//        self.view.backgroundColor = .
         
         self.contentView.backgroundColor = utils.viewBG
+        self.view.backgroundColor = utils.viewBG
         self.scrollView.backgroundColor = utils.viewBG
         
         // Do any additional setup after loading the view.
-        chatHeader.backgroundColor = utils.viewBG
+        chatHeader.backgroundColor = utils.barColor
         msgToSend.backgroundColor = utils.chatBox
         chatHeader.textColor = .gray
         
@@ -40,6 +41,9 @@ class chatViewController: UIViewController {
         self.view.bringSubviewToFront(closeBtn)
         setupMsg()
         closeBtn.tintColor = .gray
+        
+        contentView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+        
         
     }
     
@@ -68,7 +72,7 @@ class chatViewController: UIViewController {
         
         self.contentView.addSubview(lbl)
         var lastMsgLbl = chatLblLst.count > 0 ? self.chatLblLst[self.chatLblLst.count - 1].bottomAnchor : self.contentView.topAnchor
-        let constraints = [lbl.rightAnchor.constraint(equalTo: self.contentView.rightAnchor),
+        let constraints = [lbl.trailingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.trailingAnchor),
          lbl.topAnchor.constraint(equalTo: lastMsgLbl , constant: 10)
          ]
         
@@ -105,11 +109,11 @@ class chatViewController: UIViewController {
                 DispatchQueue.main.sync(execute: DispatchWorkItem(block: {
                     var lbl = UILabel()
                     var d = classified(msg: data.chatMsg!, type: "opp")
-                    var lastMsgLbl = self.chatLblLst.count > 0 ? self.chatLblLst[self.chatLblLst.count - 1].bottomAnchor : self.contentView.topAnchor
+                    var lastMsgLbl = self.chatLblLst.count > 0 ? self.chatLblLst[self.chatLblLst.count - 1].bottomAnchor : self.contentView.layoutMarginsGuide.topAnchor
                     lbl.text = data.chatMsg
                     lbl.textColor = .gray
                     self.contentView.addSubview(lbl)
-                    let constraints = [lbl.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+                    let constraints = [lbl.leadingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.leadingAnchor),
                                        lbl.topAnchor.constraint(equalTo: lastMsgLbl, constant: 10)
                     ]
                     
@@ -125,6 +129,8 @@ class chatViewController: UIViewController {
                     utils.activate(constraints)
                     utils.nomask(lbl)
                     self.chatLblLst.append(lbl)
+                    
+                    
                     
                 }))
                 
