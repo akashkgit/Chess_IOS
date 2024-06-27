@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="statBoxCls" customModule="chess" customModuleProvider="target">
+            <connections>
+                <outlet property="icon" destination="K5a-lq-gcl" id="AUO-Ps-4qp"/>
+                <outlet property="outerStk" destination="aX2-bK-jbm" id="YIn-A5-8UZ"/>
+                <outlet property="rootview" destination="iN0-l3-epB" id="2Iw-lp-c37"/>
+                <outlet property="score" destination="omh-vJ-0Vj" id="9OK-zX-41j"/>
+                <outlet property="title" destination="BCb-Xa-k8c" id="Bg8-sw-NQs"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="statBoxCls">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aX2-bK-jbm">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GAj-Fo-1lj">
+                            <rect key="frame" x="0.0" y="353" width="393" height="146"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BCb-Xa-k8c">
+                                    <rect key="frame" x="175.33333333333334" y="15" width="42.333333333333343" height="23"/>
+                                    <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="20"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5a-lq-gcl">
+                                    <rect key="frame" x="171.66666666666666" y="48" width="50" height="50"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omh-vJ-0Vj">
+                                    <rect key="frame" x="175.33333333333334" y="108" width="42.333333333333343" height="23"/>
+                                    <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="20"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <directionalEdgeInsets key="directionalLayoutMargins" top="15" leading="15" bottom="15" trailing="15"/>
+                        </stackView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="aX2-bK-jbm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="8UC-mA-Auy"/>
+                <constraint firstItem="aX2-bK-jbm" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="ME7-Vb-ily"/>
+                <constraint firstItem="aX2-bK-jbm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="QfP-Px-DFZ"/>
+                <constraint firstItem="aX2-bK-jbm" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="oIu-JJ-rRd"/>
+                <constraint firstItem="aX2-bK-jbm" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="vTV-RV-eap"/>
+            </constraints>
+            <point key="canvasLocation" x="6" y="0.0"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -130,7 +130,12 @@ class tabMenuController : UITabBarController {
     }
     
     func configTabs(){
-        let vc1 = homeViewController()
+        
+        let sb = UIStoryboard.init(name: "Main", bundle: nil)
+        let secondViewController = sb.instantiateViewController(withIdentifier: "homepage") as! homeViewController
+            let nextVc = secondViewController
+//        self.navigationController!.pushViewController(nextVc, animated: true)
+        let vc1 = nextVc
         let vc2 = puzzleViewController()
         let vc3 = learnViewController()
         let vc4 = watchViewController()

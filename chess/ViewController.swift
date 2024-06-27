@@ -57,70 +57,118 @@ class homeViewController: UIViewController {
         
     }
     
+    
+    @IBOutlet weak var pBtn: UIButton!
+    @IBOutlet weak var statStk: UIStackView!
+    @IBOutlet weak var stk2: UIStackView!
+    @IBOutlet weak var s1: UIStackView!
+    @IBOutlet weak var stkView: UIStackView!
     override func viewWillAppear(_ animated: Bool) {
         configNav()
         
         let menu = scrollMenu()
         
         
+//        pBtn.backgroundColor  = utils.primGreen
         menu.parentView = self.view
-        
-        item.build("mi", "solve 200+ Puzzles", "Rating: 200", "puzzle")
+
+//        item.build("mi", "solve 200+ Puzzles", "Rating: 200", "puzzle")
         let menuDetails = [
         ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
         ["mi", "Daily puzzle", "Solved by 1,232,781", "calendar"],
         ["mi", "Play Computer", "Jimmy - Friendly", "jimmy"],
         ["mi", "Next Lesson", "Learn something new!", "lessons"],
-//        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
-//        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
-//        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"]
         ]
+        
+//        let gameStats = [
+//            
+//        ]
+        struct stat {
+            var type:String
+            var font:String
+            var score:String
+            var color:UIColor
+        }
+        var stats = [
+            stat(type:"Rapid",font:"\u{1F1B}",score:"1103",color:utils.primGreen),
+            stat(type:"Bullet",font:"\u{1F1D}",score:"1022",color:utils.bullet),
+            stat(type:"Blitz",font:"\u{1F1C}",score:"615",color:.yellow),
+            stat(type:"Daily",font:"\u{1F1A}",score:"400",color:.yellow),
+            stat(type:"Daily960",font:"\u{00D1}",score:"400",color:utils.daily960),
+            stat(type:"Puzzles",font:"\u{010E}",score:"400",color:.systemBlue),
+        ]
+        
+        for i in stats{
+            var lbl = statBoxCls()
+            lbl.icon.font = UIFont(name: "chessglyph-v3", size: 30)
+            lbl.icon.text = i.font
+            lbl.icon.textColor = i.color
+            lbl.score.text = i.score
+            lbl.title.text = i.type
+            statStk.addArrangedSubview(lbl)
+            
+        }
         for i in menuDetails {
-            var itm = scrollItem()
-            itm.build(i[0],i[1],i[2],i[3])
-            menu.addItem(items: itm)
-        }
+            var item = homeItem()
+            item.image.image = UIImage(named: i[0])
+            item.title.text = i[1]
+            item.subTitle.text = i[2]
+            item.subImg.image = UIImage(named: i[3])
+            s1.addArrangedSubview(item)
             
-        
-        
-        
-        menu.build()
-        self.view.addSubview(menu)
-        
-        let addPlayBtn = {
-            var stk = UIStackView()
-            var btn = UIButton()
-            stk.axis = .horizontal
-            stk.alignment = .center
-            stk.isLayoutMarginsRelativeArrangement = true
-            //UIColor(red: 33/255, green: 31/255, blue: 30/255, alpha: 0.89)
-            stk.backgroundColor =  utils.barColor
-            stk.addArrangedSubview(btn)
-            self.view.addSubview(stk)
-            btn.backgroundColor = utils.primGreen
-            btn.setTitle("Play", for: .normal)
-            btn.tintColor = .gray
-            btn.backgroundColor = utils.primGreen
-            btn.layer.cornerRadius = 5
-//            stk.backgroundColor = .yellow
-            utils.nomask([stk,btn])
-//            self.extendedLayoutIncludesOpaqueBars
-            stk.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 30, bottom: 10, trailing: 30)
-            utils.activate([
-                btn.widthAnchor.constraint(equalToConstant: 100),
-//                            btn.centerXAnchor.constraint(equalTo:stk.centerXAnchor),
-//                            btn.centerYAnchor.constraint(equalTo:stk.centerYAnchor),
-//                            stk.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-                            stk.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-                            stk.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-                            stk.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
-                           ])
-            
-            btn.addTarget(self, action: #selector(self.playBtnClkd), for: .touchUpInside)
         }
-        addPlayBtn()
-//        self.view.addSubview(btn)
-            auth()
+        
+        
+////        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
+////        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
+////        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"]
+//        ]
+//        for i in menuDetails {
+//            var itm = scrollItem()
+//            itm.build(i[0],i[1],i[2],i[3])
+//            menu.addItem(items: itm)
+//        }
+//            
+//        
+//        
+//        
+//        menu.build()
+//        self.view.addSubview(menu)
+//        
+//        let addPlayBtn = {
+//            var stk = UIStackView()
+//            var btn = UIButton()
+//            stk.axis = .horizontal
+//            stk.alignment = .center
+//            stk.isLayoutMarginsRelativeArrangement = true
+//            //UIColor(red: 33/255, green: 31/255, blue: 30/255, alpha: 0.89)
+//            stk.backgroundColor =  utils.barColor
+//            stk.addArrangedSubview(btn)
+//            self.view.addSubview(stk)
+//            btn.backgroundColor = utils.primGreen
+//            btn.setTitle("Play", for: .normal)
+//            btn.tintColor = .gray
+//            btn.backgroundColor = utils.primGreen
+//            btn.layer.cornerRadius = 5
+////            stk.backgroundColor = .yellow
+//            utils.nomask([stk,btn])
+////            self.extendedLayoutIncludesOpaqueBars
+//            stk.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 30, bottom: 10, trailing: 30)
+//            utils.activate([
+//                btn.widthAnchor.constraint(equalToConstant: 100),
+////                            btn.centerXAnchor.constraint(equalTo:stk.centerXAnchor),
+////                            btn.centerYAnchor.constraint(equalTo:stk.centerYAnchor),
+////                            stk.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+//                            stk.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+//                            stk.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+//                            stk.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+//                           ])
+//            
+//            btn.addTarget(self, action: #selector(self.playBtnClkd), for: .touchUpInside)
+//        }
+//        addPlayBtn()
+////        self.view.addSubview(btn)
+//            auth()
     }
     
     @objc func playBtnClkd()->Void{
@@ -259,6 +307,8 @@ struct utils {
     static let btnColor = UIColor(red: 46/255, green: 46/255, blue: 43/255, alpha: 1)
     static let navColor = UIColor(red: 33/255, green: 31/255, blue: 30/255, alpha: 1)
     static let chatBox = UIColor(red: 79/255, green: 77/255, blue: 76/255, alpha: 1)
+    static let bullet = UIColor(red: 226/255, green: 169/255, blue: 36/255, alpha: 1)
+    static let daily960 = UIColor(red: 221/255, green: 80/255, blue: 29/255, alpha: 1)
     static let chatFontColor = UIColor(red: 222/255, green: 220/255, blue: 221/255, alpha: 1)
     static let moveHistColor = UIColor(red: 28/255, green: 26/255, blue: 25/255, alpha: 1)
     static func nomask(_ anyView: UIView) -> Void {
@@ -284,8 +334,8 @@ struct scrollItem {
     var title:String? = ""
     let titleView = UILabel()
     private var subTitle:String?
-    private var font1 = UIFont(name: "Georgia", size: 16)
-    private var font2 = UIFont(name: "noteworthy", size: 16)
+    private var font1 = UIFont(name: "Gill Sans", size: 16)
+    private var font2 = UIFont(name: "Gill Sans", size: 12)
     mutating func build(_ img: String, _ title:String, _ subTitle :String, _ subIcon:String){
         
         self.container = UIStackView()

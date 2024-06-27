@@ -17,6 +17,9 @@
 		6B72E2212C04C0B20069E19F /* moreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B72E2202C04C0B20069E19F /* moreViewController.swift */; };
 		6B72E2252C069D920069E19F /* playMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B72E2242C069D920069E19F /* playMenuController.swift */; };
 		6B7D96B52C08D90200A1D59E /* chessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7D96B42C08D90200A1D59E /* chessBoardView.swift */; };
+		6B8B2F172C2D079100E866AC /* homeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8B2F162C2D079100E866AC /* homeItem.swift */; };
+		6B8B2F192C2D0DC700E866AC /* statBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B8B2F182C2D0DC700E866AC /* statBox.xib */; };
+		6B8B2F1B2C2D0DDD00E866AC /* statBoxCls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8B2F1A2C2D0DDD00E866AC /* statBoxCls.swift */; };
 		6B8CC5B42C25F27700BD8425 /* userCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B8CC5B32C25F27700BD8425 /* userCard.xib */; };
 		6B8CC5B62C25F37200BD8425 /* friendCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8CC5B52C25F37200BD8425 /* friendCard.swift */; };
 		6B9365412BF6D55E00B59021 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9365402BF6D55E00B59021 /* AppDelegate.swift */; };
@@ -29,6 +32,7 @@
 		6BB1EDF72C0D165D00BB7AD8 /* jsonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB1EDF62C0D165D00BB7AD8 /* jsonModel.swift */; };
 		6BDBD8632C20635500285B5B /* chatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDBD8622C20635500285B5B /* chatViewController.swift */; };
 		6BE6D53B2C0E73B800F046EA /* chessMoves.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE6D53A2C0E73B800F046EA /* chessMoves.swift */; };
+		6BEC69F32C2D0269004CB896 /* homeItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BEC69F22C2D0269004CB896 /* homeItem.xib */; };
 		6BEF187E2C133C5200D97B60 /* popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEF187D2C133C5200D97B60 /* popup.swift */; };
 		6BEF18A32C14FC6900D97B60 /* matchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEF18A22C14FC6900D97B60 /* matchData.swift */; };
 		6BEF18A52C19D33F00D97B60 /* pop.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BEF18A42C19D33F00D97B60 /* pop.xib */; };
@@ -52,6 +56,9 @@
 		6B72E2202C04C0B20069E19F /* moreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moreViewController.swift; sourceTree = "<group>"; };
 		6B72E2242C069D920069E19F /* playMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playMenuController.swift; sourceTree = "<group>"; };
 		6B7D96B42C08D90200A1D59E /* chessBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chessBoardView.swift; sourceTree = "<group>"; };
+		6B8B2F162C2D079100E866AC /* homeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeItem.swift; sourceTree = "<group>"; };
+		6B8B2F182C2D0DC700E866AC /* statBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = statBox.xib; sourceTree = "<group>"; };
+		6B8B2F1A2C2D0DDD00E866AC /* statBoxCls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = statBoxCls.swift; sourceTree = "<group>"; };
 		6B8CC5B32C25F27700BD8425 /* userCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = userCard.xib; sourceTree = "<group>"; };
 		6B8CC5B52C25F37200BD8425 /* friendCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = friendCard.swift; sourceTree = "<group>"; };
 		6B93653D2BF6D55E00B59021 /* chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +73,7 @@
 		6BB1EDF62C0D165D00BB7AD8 /* jsonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonModel.swift; sourceTree = "<group>"; };
 		6BDBD8622C20635500285B5B /* chatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatViewController.swift; sourceTree = "<group>"; };
 		6BE6D53A2C0E73B800F046EA /* chessMoves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chessMoves.swift; sourceTree = "<group>"; };
+		6BEC69F22C2D0269004CB896 /* homeItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = homeItem.xib; sourceTree = "<group>"; };
 		6BEF187D2C133C5200D97B60 /* popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = popup.swift; sourceTree = "<group>"; };
 		6BEF18A22C14FC6900D97B60 /* matchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = matchData.swift; sourceTree = "<group>"; };
 		6BEF18A42C19D33F00D97B60 /* pop.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = pop.xib; sourceTree = "<group>"; };
@@ -141,6 +149,10 @@
 				6B8CC5B32C25F27700BD8425 /* userCard.xib */,
 				6B8CC5B52C25F37200BD8425 /* friendCard.swift */,
 				6B0126DB2C26819500CF66F2 /* finalViewController.swift */,
+				6BEC69F22C2D0269004CB896 /* homeItem.xib */,
+				6B8B2F162C2D079100E866AC /* homeItem.swift */,
+				6B8B2F182C2D0DC700E866AC /* statBox.xib */,
+				6B8B2F1A2C2D0DDD00E866AC /* statBoxCls.swift */,
 			);
 			path = chess;
 			sourceTree = "<group>";
@@ -208,6 +220,8 @@
 				6BEF18A92C1A48CD00D97B60 /* signup.storyboard in Resources */,
 				6BEF18A52C19D33F00D97B60 /* pop.xib in Resources */,
 				6B8CC5B42C25F27700BD8425 /* userCard.xib in Resources */,
+				6BEC69F32C2D0269004CB896 /* homeItem.xib in Resources */,
+				6B8B2F192C2D0DC700E866AC /* statBox.xib in Resources */,
 				6B2CF95B2C0967BF006ECDB3 /* Assets.xcassets in Resources */,
 				6B9365482BF6D55E00B59021 /* Main.storyboard in Resources */,
 			);
@@ -238,6 +252,7 @@
 				6B72E21D2C04C0600069E19F /* learnViewController.swift in Sources */,
 				6BEF187E2C133C5200D97B60 /* popup.swift in Sources */,
 				6B9365412BF6D55E00B59021 /* AppDelegate.swift in Sources */,
+				6B8B2F1B2C2D0DDD00E866AC /* statBoxCls.swift in Sources */,
 				6BEF18AB2C1A6FE300D97B60 /* passwordViewController.swift in Sources */,
 				6BE6D53B2C0E73B800F046EA /* chessMoves.swift in Sources */,
 				6BB1EDF72C0D165D00BB7AD8 /* jsonModel.swift in Sources */,
@@ -245,6 +260,7 @@
 				6B8CC5B62C25F37200BD8425 /* friendCard.swift in Sources */,
 				6BEF18AD2C1A6FFF00D97B60 /* usernameViewController.swift in Sources */,
 				6B9365432BF6D55E00B59021 /* SceneDelegate.swift in Sources */,
+				6B8B2F172C2D079100E866AC /* homeItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
