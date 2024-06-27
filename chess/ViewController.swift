@@ -68,12 +68,12 @@ class homeViewController: UIViewController {
         item.build("mi", "solve 200+ Puzzles", "Rating: 200", "puzzle")
         let menuDetails = [
         ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
-        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
-        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
-        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
-        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
-        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
-        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"]
+        ["mi", "Daily puzzle", "Solved by 1,232,781", "calendar"],
+        ["mi", "Play Computer", "Jimmy - Friendly", "jimmy"],
+        ["mi", "Next Lesson", "Learn something new!", "lessons"],
+//        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
+//        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
+//        ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"]
         ]
         for i in menuDetails {
             var itm = scrollItem()

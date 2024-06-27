@@ -8,14 +8,53 @@
 import UIKit
 
 class usernameViewController: UIViewController {
+    
     var pwd:String = ""
+    @IBOutlet weak var stk2: UIStackView!
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var contBtn: UIButton!
     @IBOutlet weak var username: UITextField!
     var email:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = utils.viewBG
+        contBtn.backgroundColor = .white
+        username.layer.borderColor = UIColor.lightGray.cgColor
+        username.layer.borderWidth = 2
+        contBtn.backgroundColor = utils.primGreen
+        contBtn.tintColor = .white
+        contBtn.layer.cornerRadius = 5
+        username.attributedPlaceholder = NSAttributedString(
+            string: "Username",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
+        )
+        username.backgroundColor = utils.viewBG
+        username.layer.cornerRadius = 3
+        userImage.layer.cornerRadius = 3
+        
+        
+        configNav()
         // Do any additional setup after loading the view.
     }
+    func configNav(){
+        let backBtn = UIImageView(image: UIImage(systemName: "arrow.left"))
+        backBtn.tintColor = .gray
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        backBtn.isUserInteractionEnabled = true
+        backBtn.addGestureRecognizer(tapGestureRecognizer)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
+        
+      
+    }
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        print(" tapped ")
+        self.navigationController?.popViewController(animated: true)
+        
+        // Your action
+    }
+    
     
    
     //{ emailId: emailId, password: pwd, username: username }

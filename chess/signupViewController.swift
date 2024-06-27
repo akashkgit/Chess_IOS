@@ -18,10 +18,32 @@ class signupViewController: UIViewController {
         setupView()
         // Do any additional setup after loading the view.
     }
+    @IBOutlet weak var stk2: UIStackView!
     
+    @IBOutlet weak var stk1: UIStackView!
+    @IBOutlet weak var sBtn: UIButton!
+    @IBAction func singup(_ sender: Any) {
+    }
+    @IBOutlet weak var stk3: UIStackView!
     func setupView(){
         self.view.backgroundColor = utils.viewBG
         configNav()
+        sBtn.backgroundColor = utils.primGreen
+        sBtn.layer.cornerRadius = 5
+        for i in [stk1,stk2,stk3]{
+            i?.backgroundColor = utils.barColor
+            i?.layer.cornerRadius = 5
+            
+        }
+        
+    }
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        print(" tapped ")
+        self.navigationController?.popViewController(animated: true)
+        
+        // Your action
     }
     func configNav(){
         
@@ -48,7 +70,12 @@ class signupViewController: UIViewController {
         
         
         
-        
+        let backBtn = UIImageView(image: UIImage(systemName: "arrow.left"))
+        backBtn.tintColor = .gray
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        backBtn.isUserInteractionEnabled = true
+        backBtn.addGestureRecognizer(tapGestureRecognizer)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
         
       
        

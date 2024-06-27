@@ -9,14 +9,68 @@ import UIKit
 
 class loginViewController: UIViewController {
 
+    @IBOutlet weak var stk2: UIStackView!
+    @IBOutlet weak var contBtn: UIButton!
+    @IBOutlet weak var b1: UIButton!
+    @IBOutlet weak var b2: UIButton!
+    @IBOutlet weak var b3: UIButton!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var privacy: UIImageView!
+    @IBOutlet weak var stk1: UIStackView!
     @IBOutlet weak var username: UITextField!
+    
+    var eyeOpen:Bool = false
+    @objc func toggler(tapGestureRecognizer:UITapGestureRecognizer){
+        
+        print("eyed")
+        eyeOpen = !eyeOpen
+        password.isSecureTextEntry = !eyeOpen
+        if(eyeOpen){
+            privacy.image = UIImage(systemName: "eye.fill")
+            
+        }
+        else {
+            privacy.image = UIImage(systemName: "eye.slash")
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        configNav()
+        self.view.backgroundColor = utils.viewBG
+        contBtn.backgroundColor = utils.primGreen
+        contBtn.layer.cornerRadius = 10 
+        for i in [b1,b2,b3] {
+            i?.backgroundColor = utils.barColor
+            i?.layer.cornerRadius = 10
+            
+        }
+        
+        
+        stk1.layer.cornerRadius = 10
+        stk2.layer.cornerRadius = 10
+        username.backgroundColor = utils.chatBox
+        password.backgroundColor = utils.chatBox
+        
+        privacy.isUserInteractionEnabled = true
+        stk1.backgroundColor = utils.chatBox
+        stk2.backgroundColor = utils.chatBox
+        privacy.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toggler(tapGestureRecognizer:))))
+        username.layer.borderWidth = 0
+        username.layer.borderColor = utils.chatBox.cgColor
+        password.layer.borderWidth = 0
+        password.layer.borderColor = utils.chatBox.cgColor
+        
+        
         // Do any additional setup after loading the view.
     }
-    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        print(" tapped ")
+        self.navigationController?.popViewController(animated: true)
+        
+        // Your action
+    }
 
     /*
     // MARK: - Navigation
@@ -27,7 +81,16 @@ class loginViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    func configNav(){
+        let backBtn = UIImageView(image: UIImage(systemName: "arrow.left"))
+        backBtn.tintColor = .gray
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        backBtn.isUserInteractionEnabled = true
+        backBtn.addGestureRecognizer(tapGestureRecognizer)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
+        
+      
+    }
     @IBAction func login(_ sender: Any) {
         
         struct toSend : Codable{

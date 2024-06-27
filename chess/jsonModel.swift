@@ -25,13 +25,13 @@ struct timeFormat: Codable {
     mutating func setSrc(_ srcIn:String){
         src = srcIn
         var str = src!.split(separator:" ")
-        if str[1] == "min" {
+        if str[1].lowercased() == "min"  {
             
             self.mm  = String(format:"%02d", Int((str[0]))!)
             print("-t-m-\(String(str[0]))-\(self.mm)")
             self.ss = "00"
         }
-        else if str[1] == "sec" {
+        else if str[1].lowercased() == "sec" {
             self.mm = "00"
             self.ss  = String(format:"%02d", Int((str[0]))!)
         }
@@ -43,6 +43,12 @@ struct timeFormat: Codable {
     }
 }
 
+struct requestInit: Codable {
+    var action:String?
+    var src:String?
+    var dest:String?
+    var timingOption: String?
+}
 
 struct msgModel: Codable {
     var action:String?
@@ -51,6 +57,7 @@ struct msgModel: Codable {
     var src:String?
     var dest:String?
     var authorized:Bool?
+//    var timingOption:String?
     var coinMoved:move?
     var timingOption: gameTime?
     var jwt:String?

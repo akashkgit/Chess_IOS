@@ -15,6 +15,7 @@ enum msgTypes{
     case friendList
     case auth
     case connInit
+    case defaults
     
 }
 class connection_ : NSObject, URLSessionWebSocketDelegate {
@@ -77,7 +78,10 @@ class connection_ : NSObject, URLSessionWebSocketDelegate {
                                case "chatMsg" :
                                    print(" calling chatmsg handler ")
                                    self!.handlers[msgTypes.chat]!(res)
-                               
+                               case "requestAck":
+                                   print(" request ack recieved")
+                                   self!.handlers[msgTypes.requestAck]!(res)
+                                   
                                    
                                default:
                                    
@@ -122,11 +126,44 @@ class connection_ : NSObject, URLSessionWebSocketDelegate {
            print("Disconnect from Server \(reason)")
     }
     
-    
-    func send(_ data: msgModel? = msgModel(action: "matchManager", type: "requestAck", choice: "accept", src: "pip", dest: "bib", coinMoved: nil)){
+    func requestInit(_ data: requestInit ){
         //{ action: "matchManager", type: "requestAck", "choice": "accept", "src": src, "dest": localStorage.getItem("username") }
         // {"action":"matchManager","type":"play","coinMoved":{"coin":{"type":"p","boxId":"2e","curPos":"4e"},"Pos":[0,-2],"kill":{"kill":false},"check":false},"dest":"bib","src":"pip"}
-      
+        struct msg: Codable {
+            var action:String
+            var type:String
+            var choice:String
+            var src:String
+            var dest:String
+            var coinMoved:move?
+            
+            
+        }
+        
+        struct move: Codable {
+        var coin: Coin
+        var Pos:[Int]
+            var kill: [String:Bool]
+            var check :Bool
+        }
+        struct Coin : Codable{
+        var type: String
+        var boxId:String
+        var curPos:String
+        }
+        let jen = JSONEncoder()
+        var res = try? jen.encode( data )
+        let json = String(data:res!, encoding: String.Encoding.utf8)
+        print(" sending data \(json)")
+        ws!.send(URLSessionWebSocketTask.Message.string(json!)){
+            error in
+            print(" send result : \(error) !")
+        }
+    }
+    
+    func send(_ data: msgModel! = msgModel(action: "matchManager", type: "requestAck", choice: "accept", src: "pip", dest: "bib", coinMoved: nil) ){
+        //{ action: "matchManager", type: "requestAck", "choice": "accept", "src": src, "dest": localStorage.getItem("username") }
+        // {"action":"matchManager","type":"play","coinMoved":{"coin":{"type":"p","boxId":"2e","curPos":"4e"},"Pos":[0,-2],"kill":{"kill":false},"check":false},"dest":"bib","src":"pip"}
         struct msg: Codable {
             var action:String
             var type:String
