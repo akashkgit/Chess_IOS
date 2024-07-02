@@ -21,13 +21,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="715"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8Ge-vw-RN5" userLabel="contentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="328"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="344"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hUt-rU-NyR" userLabel="s1">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="200"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hUt-rU-NyR" userLabel="s1">
+                                                <rect key="frame" x="8" y="8" width="377" height="200"/>
+                                                <directionalEdgeInsets key="directionalLayoutMargins" top="10" leading="30" bottom="10" trailing="30"/>
                                             </stackView>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F4J-S2-hn4" userLabel="statsview">
-                                                <rect key="frame" x="0.0" y="200" width="393" height="128"/>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F4J-S2-hn4" userLabel="statsview">
+                                                <rect key="frame" x="8" y="208" width="377" height="128"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="VvA-NT-fGF" userLabel="stk">
                                                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -41,8 +42,10 @@
                                                     <constraint firstAttribute="trailing" secondItem="VvA-NT-fGF" secondAttribute="trailing" id="kli-v6-atM"/>
                                                     <constraint firstAttribute="bottom" secondItem="VvA-NT-fGF" secondAttribute="bottom" id="y2s-1f-PNk"/>
                                                 </constraints>
+                                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
                                             </scrollView>
                                         </subviews>
+                                        <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -53,13 +56,39 @@
                                     <constraint firstItem="8Ge-vw-RN5" firstAttribute="leading" secondItem="ncL-k7-Bhj" secondAttribute="leading" id="gfS-Yg-1cd"/>
                                 </constraints>
                             </scrollView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGb-I1-8in">
+                                <rect key="frame" x="0.0" y="644.33333333333337" width="393" height="70.666666666666629"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ePx-cc-6ow">
+                                        <rect key="frame" x="15" y="14.999999999999996" width="363" height="40.666666666666657"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Play">
+                                                    <attributes>
+                                                        <font key="NSFont" size="23" name="GillSans"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="hjz-l8-Qdp" kind="show" id="RNK-5v-wwB"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <directionalEdgeInsets key="directionalLayoutMargins" top="15" leading="15" bottom="15" trailing="15"/>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ED8-zY-ZLr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ED8-zY-ZLr" firstAttribute="bottom" secondItem="ncL-k7-Bhj" secondAttribute="bottom" id="7En-7n-VOH"/>
-                            <constraint firstItem="ncL-k7-Bhj" firstAttribute="height" secondItem="ED8-zY-ZLr" secondAttribute="height" id="BsF-mY-Ny2"/>
+                            <constraint firstItem="PGb-I1-8in" firstAttribute="top" secondItem="ncL-k7-Bhj" secondAttribute="bottom" id="8OV-KM-xu9"/>
                             <constraint firstItem="ncL-k7-Bhj" firstAttribute="leading" secondItem="ED8-zY-ZLr" secondAttribute="leading" id="Dna-KH-j14"/>
+                            <constraint firstItem="PGb-I1-8in" firstAttribute="leading" secondItem="ED8-zY-ZLr" secondAttribute="leading" id="JbK-RG-BK4"/>
+                            <constraint firstItem="PGb-I1-8in" firstAttribute="width" secondItem="ED8-zY-ZLr" secondAttribute="width" id="XUl-MO-2bs"/>
+                            <constraint firstItem="PGb-I1-8in" firstAttribute="bottom" secondItem="ED8-zY-ZLr" secondAttribute="bottom" id="efV-aR-OpJ"/>
                             <constraint firstItem="ED8-zY-ZLr" firstAttribute="trailing" secondItem="ncL-k7-Bhj" secondAttribute="trailing" id="mS1-i4-IkZ"/>
                             <constraint firstItem="ED8-zY-ZLr" firstAttribute="top" secondItem="ncL-k7-Bhj" secondAttribute="top" id="wjn-gR-fwi"/>
                             <constraint firstItem="ncL-k7-Bhj" firstAttribute="width" secondItem="ED8-zY-ZLr" secondAttribute="width" id="xYz-ah-h5U"/>
@@ -67,6 +96,8 @@
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="pBtn" destination="ePx-cc-6ow" id="c8n-pn-U2F"/>
+                        <outlet property="playStk" destination="PGb-I1-8in" id="grZ-lR-IF5"/>
                         <outlet property="s1" destination="hUt-rU-NyR" id="X4X-Ve-7c5"/>
                         <outlet property="statStk" destination="VvA-NT-fGF" id="aUV-2R-pSU"/>
                         <outlet property="stk2" destination="VvA-NT-fGF" id="PTK-sf-vOc"/>
@@ -217,6 +248,7 @@
                             <constraint firstItem="8nZ-sz-b47" firstAttribute="centerX" secondItem="cO6-e2-xZQ" secondAttribute="centerX" id="h99-rC-VHM"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="12S-rt-L6x"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="computerStack" destination="uvg-pQ-uez" id="iin-b0-6Vv"/>
@@ -619,7 +651,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyS-Ri-GR4">
-                                <rect key="frame" x="37.666666666666657" y="814" width="317.66666666666674" height="28"/>
+                                <rect key="frame" x="37.666666666666657" y="804" width="317.66666666666674" height="28"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
                                     <attributedString key="attributedTitle">
@@ -642,7 +674,7 @@
                         <constraints>
                             <constraint firstItem="1x7-1s-Xp8" firstAttribute="width" secondItem="3ME-hZ-Gjb" secondAttribute="width" id="0ey-8f-hhU"/>
                             <constraint firstItem="1x7-1s-Xp8" firstAttribute="centerX" secondItem="3ME-hZ-Gjb" secondAttribute="centerX" id="B1E-A8-wmm"/>
-                            <constraint firstItem="3ME-hZ-Gjb" firstAttribute="bottom" secondItem="wyS-Ri-GR4" secondAttribute="bottom" id="CAW-sI-IO8"/>
+                            <constraint firstItem="3ME-hZ-Gjb" firstAttribute="bottom" secondItem="wyS-Ri-GR4" secondAttribute="bottom" constant="10" id="CAW-sI-IO8"/>
                             <constraint firstItem="CZM-lP-G4p" firstAttribute="width" secondItem="3ME-hZ-Gjb" secondAttribute="width" multiplier="0.7" id="Yy6-GX-BZF"/>
                             <constraint firstItem="wyS-Ri-GR4" firstAttribute="centerX" secondItem="3ME-hZ-Gjb" secondAttribute="centerX" id="itB-C4-Krz"/>
                             <constraint firstItem="wyS-Ri-GR4" firstAttribute="width" secondItem="Dfz-Us-ZO5" secondAttribute="width" id="suN-gK-mzq"/>
@@ -885,7 +917,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JeL-5n-EXl">
-                                <rect key="frame" x="50.666666666666657" y="801.33333333333337" width="291.66666666666674" height="40.666666666666629"/>
+                                <rect key="frame" x="50.666666666666657" y="791.33333333333337" width="291.66666666666674" height="40.666666666666629"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
                                     <attributedString key="attributedTitle">
@@ -908,7 +940,7 @@
                             <constraint firstItem="JeL-5n-EXl" firstAttribute="centerX" secondItem="RRw-Ta-xIV" secondAttribute="centerX" id="PGG-1D-k3h"/>
                             <constraint firstItem="byP-Rw-hZI" firstAttribute="top" secondItem="RRw-Ta-xIV" secondAttribute="top" constant="83" id="cHZ-BN-LHx"/>
                             <constraint firstItem="byP-Rw-hZI" firstAttribute="centerX" secondItem="RRw-Ta-xIV" secondAttribute="centerX" id="dqh-3L-69P"/>
-                            <constraint firstItem="RRw-Ta-xIV" firstAttribute="bottom" secondItem="JeL-5n-EXl" secondAttribute="bottom" id="gWu-Kj-yXG"/>
+                            <constraint firstItem="RRw-Ta-xIV" firstAttribute="bottom" secondItem="JeL-5n-EXl" secondAttribute="bottom" constant="10" id="gWu-Kj-yXG"/>
                             <constraint firstItem="JeL-5n-EXl" firstAttribute="width" secondItem="PKH-ip-wNt" secondAttribute="width" id="tc8-Wm-yHl"/>
                             <constraint firstItem="wGf-En-5a9" firstAttribute="width" secondItem="RRw-Ta-xIV" secondAttribute="width" multiplier="0.6" id="v0R-pa-oVd"/>
                         </constraints>
@@ -963,9 +995,6 @@
                                                 <rect key="frame" x="64" y="0.0" width="185" height="40"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <action selector="username:" destination="Ys2-6U-tDZ" eventType="editingDidEnd" id="m1z-TK-dKZ"/>
-                                                </connections>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -979,7 +1008,7 @@
                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qnv-98-AO9">
-                                <rect key="frame" x="30" y="805" width="333" height="37"/>
+                                <rect key="frame" x="30" y="795" width="333" height="37"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
                                     <attributedString key="attributedTitle">
@@ -1004,7 +1033,7 @@
                             <constraint firstItem="HHO-1e-AP4" firstAttribute="top" secondItem="vUI-xT-Btd" secondAttribute="top" constant="108" id="KMD-YS-FEV"/>
                             <constraint firstItem="Qnv-98-AO9" firstAttribute="centerX" secondItem="vUI-xT-Btd" secondAttribute="centerX" id="Ubw-cE-jxJ"/>
                             <constraint firstItem="Qnv-98-AO9" firstAttribute="width" secondItem="HHO-1e-AP4" secondAttribute="width" multiplier="0.9" id="g23-c7-Sij"/>
-                            <constraint firstItem="vUI-xT-Btd" firstAttribute="bottom" secondItem="Qnv-98-AO9" secondAttribute="bottom" id="tMO-nq-QrC"/>
+                            <constraint firstItem="vUI-xT-Btd" firstAttribute="bottom" secondItem="Qnv-98-AO9" secondAttribute="bottom" constant="10" id="tMO-nq-QrC"/>
                             <constraint firstItem="p6m-Ip-DxO" firstAttribute="width" secondItem="vUI-xT-Btd" secondAttribute="width" multiplier="0.9" id="z3y-rs-070"/>
                         </constraints>
                     </view>
@@ -1768,6 +1797,7 @@
                         <outlet property="br2" destination="asg-Wk-XNP" id="wrn-5Z-ipf"/>
                         <outlet property="chatWindow" destination="wOp-si-hLJ" id="Z58-LU-mNo"/>
                         <outlet property="contentView" destination="bZO-ox-NTd" id="Gx4-vB-ubs"/>
+                        <outlet property="controls" destination="m9w-rC-l2i" id="ozg-DE-k0L"/>
                         <outlet property="moveHistory" destination="qXE-8N-L1J" id="nCg-BD-Sac"/>
                         <outlet property="myClk" destination="xJZ-5j-8Hh" id="4TR-RV-RUT"/>
                         <outlet property="myClkIcon" destination="LW1-HH-861" id="IMi-EU-qR5"/>

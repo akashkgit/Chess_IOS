@@ -57,6 +57,7 @@ class homeViewController: UIViewController {
         
     }
     
+    @IBOutlet weak var playStk: UIStackView!
     
     @IBOutlet weak var pBtn: UIButton!
     @IBOutlet weak var statStk: UIStackView!
@@ -67,11 +68,11 @@ class homeViewController: UIViewController {
         configNav()
         
         let menu = scrollMenu()
+        playStk.backgroundColor = utils.barColor
         
-        
-//        pBtn.backgroundColor  = utils.primGreen
+        pBtn.backgroundColor  = utils.primGreen
         menu.parentView = self.view
-
+        s1.backgroundColor = utils.viewBG
 //        item.build("mi", "solve 200+ Puzzles", "Rating: 200", "puzzle")
         let menuDetails = [
         ["mi", "solve 200+ Puzzles", "Rating: 200", "puzzle"],
@@ -168,7 +169,7 @@ class homeViewController: UIViewController {
 //        }
 //        addPlayBtn()
 ////        self.view.addSubview(btn)
-//            auth()
+            auth()
     }
     
     @objc func playBtnClkd()->Void{
@@ -284,7 +285,7 @@ class homeViewController: UIViewController {
     }
     
     @IBAction func unwindedSingup(_ param:UIStoryboardSegue){
-        
+        auth()
     }
     @objc func signin(){
         let sNav = self.navigationController!
@@ -302,7 +303,7 @@ class homeViewController: UIViewController {
 
 struct utils {
     static let primGreen = UIColor(red: 129/255, green: 182/255, blue: 76/255, alpha: 1)
-    static let barColor =  UIColor(red: 33/255, green: 31/255, blue: 30/255, alpha: 1 )
+    static let barColor =  UIColor(red: 33/255, green: 31/255, blue: 30/255, alpha: 1)
     static let viewBG = UIColor(red: 46/255, green: 44/255, blue: 41/255, alpha: 1)
     static let btnColor = UIColor(red: 46/255, green: 46/255, blue: 43/255, alpha: 1)
     static let navColor = UIColor(red: 33/255, green: 31/255, blue: 30/255, alpha: 1)

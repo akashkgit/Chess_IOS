@@ -359,12 +359,12 @@ func checkcheck(_ view: MatchViewController) -> Bool{
         let oldX = Int(frm!.minX)
         let oldY = Int(frm!.minY)
         
-        let test = CGRect(x: oldX, y: oldY, width: 10, height: 10)
-        let testpt = UIImageView(frame: test)
-        testpt.backgroundColor = .blue
-        
-        self.boardView.addSubview(testpt)
-        
+//        let test = CGRect(x: oldX, y: oldY, width: 10, height: 10)
+//        let testpt = UIImageView(frame: test)
+//        testpt.backgroundColor = .blue - testBox
+//
+//        self.boardView.addSubview(testpt)
+//        
         
         var dY = oldY - Int(locY!)
         var dX = oldX - Int( locX!)
@@ -378,10 +378,10 @@ func checkcheck(_ view: MatchViewController) -> Bool{
         var newX:Int =  oldX - (( Int(dX / width) ) * width)
         if ( dX > 0) {newX = newX - width}
         let rect = CGRect(x: newX, y: newY, width: 10, height: 10)
-        let pt = UIImageView(frame: rect)
-        pt.backgroundColor = .red
+//        let pt = UIImageView(frame: rect)
+//        pt.backgroundColor = .red - testBox
         
-        self.boardView.addSubview(pt)
+//        self.boardView.addSubview(pt)
         print("ox:\(oldX) oy:\(oldY) w:\(width) h:\(height) lx:\(locX) ly:\(locY) dy:\(dY) dx:\(dX) dy/h:\(dY/height)y: \((( (dY / height) + 1) * height)) /x: \((( (dX / width) ) * width)) ny: \(newY) nx:\(newX)")
         //        activeEl?.frame = CGRect(x: CGFloat(newX) , y: CGFloat(newY), width: CGFloat(frm!.width), height: CGFloat(frm!.height))
         let btnDets = MatchViewController.reverseMap[activeEl!]
@@ -595,6 +595,8 @@ func checkcheck(_ view: MatchViewController) -> Bool{
         navigationItem.titleView = v
         navigationItem.hidesBackButton = true
         
+        self.tabBarController?.tabBar.isHidden = true 
+        
     }
     
     func send(_ data: msgModel? = msgModel(action: "matchManager", type: "requestAck", choice: "accept", src: "pip", dest: "bib", coinMoved: nil)){
@@ -688,7 +690,7 @@ func checkcheck(_ view: MatchViewController) -> Bool{
                     killedCoin?.removeFromSuperview()
                     killedCoin?.contentMode = .scaleAspectFit
                     
-                    killedCoin?.backgroundColor = .red
+//                    killedCoin?.backgroundColor = .red
                     self.view.setNeedsLayout()
                     print(" SIZE SIZE SIZE ", killedCoin!.constraints, killedCoin?.frame)
                     self.myLCoins.addArrangedSubview(killedCoin!)
@@ -768,10 +770,13 @@ func checkcheck(_ view: MatchViewController) -> Bool{
            print("Disconnect from Server \(reason)")
     }
     
+    @IBOutlet weak var controls: UIStackView!
     func setupView(){
         
         // -- websocket ------------
         
+        
+        controls.backgroundColor = utils.barColor
         
         connection.getConnection()?.setHandler(.play, processReq)
         

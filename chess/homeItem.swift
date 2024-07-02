@@ -8,7 +8,8 @@
 import UIKit
 @IBDesignable 
 class homeItem: UIView {
-
+    @IBOutlet weak var stk: UIStackView!
+    
     @IBOutlet weak var subImg: UIImageView!
     @IBOutlet weak var subTitle: UILabel!
     @IBOutlet weak var title: UILabel!
@@ -28,6 +29,7 @@ class homeItem: UIView {
         self.commonInit()
     }
     
+    
     required init?(coder: NSCoder){
         super.init(coder: coder)
         self.commonInit()
@@ -46,7 +48,7 @@ class homeItem: UIView {
 //        senderName.textColor = .gray
         self.addSubview(frst)
         self.rootview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
+        stk.backgroundColor  = utils.viewBG
       
     }
 }

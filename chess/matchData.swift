@@ -75,7 +75,7 @@ class connection_ : NSObject, URLSessionWebSocketDelegate {
                                    print(" ((response \(res) ))\n\(res.type) \(res.authorized)")
                                    self!.handlers[msgTypes.auth]!(res)
                                    
-                               case "chatMsg" :
+                               case "chatvisuaMsg" :
                                    print(" calling chatmsg handler ")
                                    self!.handlers[msgTypes.chat]!(res)
                                case "requestAck":
@@ -87,11 +87,14 @@ class connection_ : NSObject, URLSessionWebSocketDelegate {
                                    
                                    if let f = res.friendList {
                                        self!.handlers[msgTypes.friendList]!(res)
+                                    
                                    }
-                                   
-                                   if (res.action == "play"){
+                                   else {
+                                       
+                                       print(" calling default handler ")
                                        self!.handlers[msgTypes.play]!(res)
                                    }
+                                   
                                }
 //                               if(res.type == "requestInit"){ self!.send()}
 //                               else {

@@ -24,17 +24,17 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_default" translatesAutoresizingMaskIntoConstraints="NO" id="IOZ-Uy-Jo8" userLabel="senderImg">
-                            <rect key="frame" x="0.0" y="354.66666666666669" width="50" height="50"/>
+                            <rect key="frame" x="15" y="354.66666666666669" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="e8W-hc-b0n"/>
                                 <constraint firstAttribute="height" constant="50" id="j0e-ez-BLG"/>
                             </constraints>
                         </imageView>
                         <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xtv-7G-1X1">
-                            <rect key="frame" x="55" y="369.33333333333331" width="230" height="20.333333333333314"/>
+                            <rect key="frame" x="70" y="369.33333333333331" width="200" height="20.333333333333314"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNt-f7-1Ld" userLabel="sender">
-                                    <rect key="frame" x="0.0" y="0.0" width="230" height="20.333333333333332"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="20.333333333333332"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -42,7 +42,7 @@
                             </subviews>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjr-di-eig" userLabel="accept">
-                            <rect key="frame" x="290" y="362.33333333333331" width="49" height="34.333333333333314"/>
+                            <rect key="frame" x="275" y="362.33333333333331" width="49" height="34.333333333333314"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="checkmark.square.fill" catalog="system" title="">
                                 <color key="baseForegroundColor" systemColor="systemGreenColor"/>
@@ -52,7 +52,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FwU-l8-Z6S" userLabel="reject">
-                            <rect key="frame" x="344" y="362.33333333333331" width="49" height="34.333333333333314"/>
+                            <rect key="frame" x="329" y="362.33333333333331" width="49" height="34.333333333333314"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="xmark.square.fill" catalog="system">
                                 <color key="baseForegroundColor" systemColor="systemRedColor"/>
@@ -62,6 +62,7 @@
                             </connections>
                         </button>
                     </subviews>
+                    <directionalEdgeInsets key="directionalLayoutMargins" top="15" leading="15" bottom="15" trailing="15"/>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -83,10 +84,10 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

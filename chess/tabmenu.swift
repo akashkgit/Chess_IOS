@@ -37,6 +37,7 @@ class tabMenuController : UITabBarController {
        
         
         var matchReq =  popup(frame: .zero)
+        matchReq.backgroundColor = utils.barColor
         self.view.addSubview(matchReq)
         utils.nomask(matchReq)
         
@@ -153,6 +154,7 @@ class tabMenuController : UITabBarController {
         
         
         UITabBar.appearance().standardAppearance = app
+        UITabBar.appearance().scrollEdgeAppearance = app 
 //        UITabBar.appearance().barTintColor = UIColor(white: 0, alpha: 0.3)
         UITabBar.appearance().tintColor = UIColor(red: 129/255, green: 182/255, blue: 76/255, alpha: 1)
         

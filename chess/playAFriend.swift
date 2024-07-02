@@ -93,7 +93,7 @@ class playAFriend: UIViewController {
                     self.newStk!.axis = .vertical
                     self.newStk!.spacing = 10
                     
-                    self.newStk?.backgroundColor = .red
+//                    self.newStk?.backgroundColor = .red
                     utils.nomask([self.newStk!])
                     
                 }

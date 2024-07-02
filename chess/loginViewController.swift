@@ -99,7 +99,7 @@ class loginViewController: UIViewController {
 //            var username:String!
         }
         
-        
+        print("clicked login attemptomg/.....")
         var details = toSend(emailId: username.text, password: password.text)
         var data = try? JSONEncoder().encode(details)
         let url = URL(string: urls.login)!
@@ -129,10 +129,13 @@ class loginViewController: UIViewController {
                 let resp = try? decoder.decode(loginResponse.self , from: data!)
                   print("decoded --> ", resp)
             
-            if resp!.found {
-                UserDefaults.standard.setValue(resp!.jwt, forKey: "jwt")
-                UserDefaults.standard.setValue(self.username.text, forKey: "username")
-                UserDefaults.standard.setValue(true, forKey: "login")
+            if resp!.found!{
+
+                DispatchQueue.main.sync {
+                    UserDefaults.standard.setValue(resp!.jwt, forKey: "jwt")
+                    UserDefaults.standard.setValue(self.username.text, forKey: "username")
+                    UserDefaults.standard.setValue(true, forKey: "login")
+                }
                 
             }
             
